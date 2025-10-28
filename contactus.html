@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="./contact.css" />
+</head>
+<body>
+  <div class="cont">
+    <div class="left-side">
+      <h2>Branches</h2><br><br><br><br>
+      <p><strong>Colombo</strong><br><br><br>No.34,victoriya rd,colombo 5.</p>
+      <p><strong>Kandy</strong><br><br><br>No.23,raja veediya,kandy.</p>
+      <p><strong>Mathara</strong><br><br><br>No.44,Galle rd,Mathara.</p>
+      <div class="icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-x-twitter"></i></a>
+      </div>
+    </div>
+    <div class="right-side">
+      <div class="form-cont">
+        <h1>Contact Us</h1>
+        <form id="contactForm">
+          <input type="text" id="name" placeholder="Your Name" required >
+          <input type="email" id="email" placeholder="Your Email" required >
+          <textarea id="message" placeholder="Your Message" required></textarea>
+          <label>
+            <input type="checkbox">I accept the <a href="#">Terms of Services</a>
+          </label>
+          <button type="submit" id="btn" onclick=register()>Send the message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function register(){
+    window.alert("Your submission completed successfully");
+    }
+  </script>
+</body>
+</html>

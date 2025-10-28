@@ -1,0 +1,26 @@
+.see-more-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.see-more-btn button{
+    font-size: 11pt;
+    padding: 13px 25px;
+    color: #7D7D7D;
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    border: 1px solid #4D71B9;
+    font-weight: 700;
+    border-radius: 0;
+    background-color: transparent;
+    
+}
+.see-more-btn button:hover{
+    color: white;
+    background-color: #4D71B9;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    
+}

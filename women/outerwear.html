@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/nav.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/summer-sale.css">
+    <link rel="stylesheet" href="../css/shop-nav.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/product-card.css">
+    <link rel="stylesheet" href="../css/product-list.css">
+    <link rel="stylesheet" href="../css/see-more.css">
+    <script src="../java-script/women/outerware/load-product-card.js"></script>
+    <script>
+        window.onload = function () {
+            renderProducts();
+        };
+
+    </script>
+
+    <title>Women Outerwares</title>
+
+    <style>
+        @media (max-width: 850px) {
+            .header-background {
+                background-color: rgba(1, 1, 1, 0.3);
+            }
+
+            .home-text1 {
+                color: white;
+            }
+
+            .home-text2 {
+                color: white;
+            }
+
+            header .btn {
+                margin-top: 40px;
+                margin-left: 25%;
+                padding: 20px 20px;
+                background-color: transparent;
+                border-radius: 0;
+                color: #ffffff;
+                font-family: "Poppins", sans-serif;
+                font-size: 16px;
+                border: 1px solid #ffffff;
+            }
+
+            header .btn:hover {
+                border: 3px solid #ffffff;
+                color: #ffffff;
+                background-color: rgba(197, 197, 197, 0.3);
+            }
+
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <header>
+        <nav >
+            <div class="h2" >A R V I N A</div>
+            <ul>
+                <li class="li"><a href="" class="aNav">OFFERS</a></li>
+                <li class="li"><a href="" class="aNav">FAQ</a></li>
+                <li class="li"><a href="" class="aNav">ABOUT US</a></li>
+                <li class="li"><a href="" class="aNav">CONTACT</a></li>
+                <button onclick="displayLogin()">LOGIN</button>
+            </ul>
+        </nav>
+        <div class="header-background"
+            style="background-image: url(../assest/women/outerware/outerware.jpg); margin-top: 70px; ">
+
+            <div class="home-move-area" style="justify-content: flex-end; padding-right: 15%;">
+                <section class="home ">
+                    <div class="home-text2">ELEVATE YOUR STYLE</div>
+                    <div class="home-text1">TIMELESS ELEGANCE</div>
+                    <div class="best"><button class="btn">SHOP BEST SELLERS</button></div>
+                </section>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="sticky-area">
+        <div class="shop-nav">
+            <div class="nav-align">
+                <div class="all"><button class="btn1"
+                    onclick="window.location.href = '../home.html';">ALL</button></div>
+                <div class="bestsellers"><button class="btn1"
+                    onclick="window.location.href = '../bestsellers/bestsellers.html';">BESTSELLERS</button></div>
+                <div class="us"><button class="btn1"
+                    onclick="window.location.href = '../about/about.html';">THE TEAM</button></div>
+                <div class="men"><button class="btn1"
+                    onclick="window.location.href = '../men/men.html';">MEN</button></div>
+                <div class="women"><button class="btn1"
+                        onclick="window.location.href = '../women/women.html';">WOMEN</button></div>
+                        
+                <div class="watches"><button class="btn1"
+                    onclick="window.location.href = '../watches/watches.html';">WATCHES</button></div>
+                <div class="shoes"><button class="btn1"
+                    onclick="window.location.href = '../shoes/shoes.html';">SHOES</button></div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="product-list">
+       
+    </div>
+
+    <div class="see-more">
+        <div class="see-more-btn"><button>SEE MORE</button></div>
+    </div>
+
+
+
+    <div class="summer-sale">
+        <div class="summer">SUMMER SALE</div>
+        <div class="off50">UP TO 50% OFF</div>
+        <div class="shopnow"><button class="shopnow-btn">SHOP NOW</button></div>
+    </div>
+
+    <footer class="foot">
+        <div class="full-wrapper">
+            <div class="about-wrapper">
+                <div class="about">
+                    <h4>More About Company</h4>
+                </div>
+                <div class="about-content">
+                    <p>
+                        Embrace timeless elegance with our Old Money Clothing collection—where sophistication meets
+                        heritage. We blend classic fashion with modern craftsmanship to bring you premium-quality
+                        apparel that exudes quiet luxury. Elevate your wardrobe with pieces inspired by the refined
+                        aesthetics of the past. Stay connected with us for exclusive collections and style updates.
+                    </p>
+                </div>
+            </div>
+            <div class="social-wrapper">
+                <h4>Contact Information</h4>
+                <ul class="contact-list">
+                    <li><i class="fa-solid fa-map-location"></i>67/2, Main street,Colombo</li>
+                    <li><i class="fa-solid fa-id-badge"></i>+94777678678</li>
+                    <li><i class="fa-solid fa-square-envelope"></i>oldmoneyclothing@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="social-icons">
+
+        </div>
+    </footer>
+</body>
+
+</html>

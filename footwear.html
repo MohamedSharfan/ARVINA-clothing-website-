@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./nav.css">
+    <link rel="stylesheet" href="./footer.css">
+    <link rel="stylesheet" href="./footwear.css"> 
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" /> 
+    <script src="./homeScript.js"></script>
+    
+    <title>ARVINA | Footwear Collection</title>
+</head>
+<body>
+    <progress value="40" max="100">70%</progress>
+    <header id="navi">
+        <nav>
+            <div class="h2">A R V I N A</div>
+            <ul>
+                <li class="li"><a href="./home.html" class="aNav" >HOME</a></li>
+                <li class="li"><a href="#off" class="aNav" >OFFERS</a></li>
+                <li class="li"><a href="./about.html" class="aNav">ABOUT US</a></li>
+                <li class="li"><a href="#contact" class="aNav">CONTACT</a></li>
+                <button onclick="displayLogin()">LOGIN</button>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="backg" style="display: none;">
+        <div class="login_container">
+            <div class="txtlogin">Login Page</div>
+            <form action="">
+                <div class="usernameContainer"><label for="">username</label><input type="text" id="userName"></div><br>
+                <div class="passwordContainer"><label for="">password</label><input type="password" id="passWord"></div>
+                <br>
+                <button class="can">Cancel</button>
+                <button class="log">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="full">
+         <section class="footwear-hero">
+            <div class="hero-text">
+                <h1>ARVINA FOOTWEAR</h1>
+                <p>Step into sophistication with our premium footwear collection</p>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="footwear-categories">
+            <h2>OUR COLLECTIONS</h2>
+            <div class="category-grid">
+                <div class="category-card" onclick="filterProducts('men')">
+                    <img src="./pics/mencat.jpeg" alt="Men's Footwear">
+                    <h3>MEN'S</h3>
+                </div>
+                <div class="category-card" onclick="filterProducts('women')">
+                    <img src="./pics/womencat.jpeg" alt="Women's Footwear">
+                    <h3>WOMEN'S</h3>
+                </div>
+                <div class="category-card" onclick="filterProducts('casual')">
+                    <img src="./pics/casualcat.jpg" alt="Casual Footwear">
+                    <h3>CASUAL</h3>
+                </div>
+                <div class="category-card" onclick="filterProducts('formal')">
+                    <img src="./pics/formalcat.jpeg" alt="Formal Footwear">
+                    <h3>FORMAL</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="featured-footwear">
+            <h2>FEATURED FOOTWEAR</h2>
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-images">
+                        <img src="./pics/classic.webp" class="main-img" alt="Classic Oxford">
+                        <img src="./pics/classicside.webp" class="hover-img" alt="Classic Oxford Side View">
+                    </div>
+                    <h3>Classic Oxford</h3>
+                    <p class="price">Rs.12,500.00</p>
+                    <button class="add-to-cart">ADD TO CART</button>
+                </div>
+                
+                
+                <div class="product-card">
+                    <div class="product-images">
+                        <img src="./pics/loaferfront.webp" class="main-img" alt="Modern Loafers">
+                        <img src="./pics/loaferside.webp" class="hover-img" alt="Modern Loafers Side View">
+                    </div>
+                    <h3>Modern Loafers</h3>
+                    <p class="price">Rs.10,800.00</p>
+                    <button class="add-to-cart">ADD TO CART</button>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-images">
+                        <img src="./pics/heelsside.jpeg.jpg" class="main-img" alt="Elegant Pumps">
+                        <img src="./pics/heels.jpg" class="hover-img" alt="Elegant Pumps Side View">
+                    </div>
+                    <h3>Elegant Pumps</h3>
+                    <p class="price">Rs.9,900.00</p>
+                    <button class="add-to-cart">ADD TO CART</button>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-images">
+                        <img src="./pics/sneakerfront.jpeg" class="main-img" alt="Sporty Sneakers">
+                        <img src="./pics/sneakerside.jpeg" class="hover-img" alt="Sporty Sneakers Side View">
+                    </div>
+                    <h3>Sporty Sneakers</h3>
+                    <p class="price">Rs.8,500.00</p>
+                    <button class="add-to-cart">ADD TO CART</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Special Offer -->
+        <section class="footwear-offer" id="off">
+            <div class="offer-content">
+                <h2>LIMITED TIME OFFER</h2>
+                <p>Get 20% off on all footwear collections</p>
+                <p class="offer-code">Use code: STEPIN20</p>
+                <button class="shop-now">SHOP NOW</button>
+            </div>
+        </section>
+
+        
+        <section class="cutomersupport">
+            <div class="sec">
+                <div class="freeShipping">
+                    <span class="material-symbols-outlined" style="font-size: 22pt;">
+                        package_2
+                    </span>
+                    <div class="shippingtxt">FREE SHIPPING</div>
+                    <div class="shippingpara">We offer free worldwide shipping on orders over Rs.50000.00</div>
+                </div>
+                <div class="cutomersup">
+                    <span class="material-symbols-outlined">
+                        support_agent
+                    </span>
+                    <div class="custtxt">CUSTOMER SERVICE</div>
+                    <div class="shippingpara">Our customer service team will available Monday till Friday 9am to 9pm</div>
+                </div>
+                <div class="payment">
+                    <span class="material-symbols-outlined">
+                        sell
+                    </span>
+                    <div class="custtxt">SECURE PAYMENT</div>
+                    <div class="shippingpara">We use trusted encryption technology and secure payment gateways.</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    
+    <footer class="foot">
+        <div class="full-wrapper">
+            <div class="about-wrapper">
+                <div class="about">
+                    <h4>More About Company</h4>
+                </div>
+                <div class="about-content">
+                    <p>
+                        Embrace timeless elegance with our Old Money Clothing collection—where sophistication meets heritage. We blend classic fashion with modern craftsmanship to bring you premium-quality apparel that exudes quiet luxury. Elevate your wardrobe with pieces inspired by the refined aesthetics of the past. Stay connected with us for exclusive collections and style updates.   
+                    </p>
+                </div>
+            </div>
+            <div class="social-wrapper" id="contact">
+                <h4>Contact Information</h4>
+                <ul class="contact-list">
+                    <li><i class="fa-solid fa-map-location"></i>67/2, Main street,Colombo</li>
+                    <li><i class="fa-solid fa-id-badge"></i>+94777678678</li>
+                    <li><i class="fa-solid fa-square-envelope"></i>oldmoneyclothing@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+   
+</body>
+</html>

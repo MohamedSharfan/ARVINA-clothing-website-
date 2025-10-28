@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    >
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/header.css">
+        <link rel="stylesheet" href="./css/nav.css">
+        <link rel="stylesheet" href="./css/footer.css">
+        <link rel="stylesheet" href="./css/summer-sale.css">
+        <link rel="stylesheet" href="./css/shop-nav.css">
+        <link rel="stylesheet" href="./css/common.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="./css/product-card.css">
+        <link rel="stylesheet" href="./css/product-buy-card.css">
+        <script src="./java-script/load-product-buy-card.js"></script>
+        <script src="./java-script/cart.js"></script>
+
+        <title>Buy</title>
+        <script>
+            window.onload = function () {
+                getBuyProduct();
+            };
+            
+        </script>
+
+
+
+    </head>
+
+<body>
+    <header>
+        <nav >
+            <div class="h2" >A R V I N A</div>
+            <ul>
+                <li class="li"><a href="" class="aNav">OFFERS</a></li>
+                <li class="li"><a href="" class="aNav">FAQ</a></li>
+                <li class="li"><a href="" class="aNav">ABOUT US</a></li>
+                <li class="li"><a href="" class="aNav">CONTACT</a></li>
+                <li class="li cart-link">
+                    <a href="cart.php" class="aNav">
+                        <i class="fa-solid fa-shopping-cart"></i> CART
+                        <span id="cart-count" style="display:none; background-color: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; margin-left: 5px;">0</span>
+                    </a>
+                </li>
+                <button onclick="displayLogin()">LOGIN</button>
+            </ul>
+        </nav>
+        <div class="header-background" style="background-image:none;display: none;">
+
+            <section class="home" style=" min-width: max-content; ">
+                <div class="home-text2">ELEVATE YOUR STYLE</div>
+                <div class="home-text1">TIMELESS ELEGANCE</div>
+                <div class="best"><button class="btn">SHOP BEST SELLERS</button></div>
+            </section>
+        </div>
+    </header>
+
+    <div class="sticky-area">
+        <div class="shop-nav">
+            <div class="nav-align">
+                <div class="all"><button class="btn1">ALL</button></div>
+                <div class="bestsellers"><button class="btn1">BESTSELLERS</button></div>
+                <div class="us"><button class="btn1">THE TEAM</button></div>
+                <div class="men"><button class="btn1">MEN</button></div>
+                <div class="women"><button class="btn1">WOMEN</button></div>
+                <div class="watches"><button class="btn1">WATCHES</button></div>
+                <div class="shoes"><button class="btn1">SHOES</button></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="product-buy-card-main">
+        <div class="product-buy-card">
+            <div class="product-image">
+                <img id="product" class="thambnail-image">
+            </div>
+
+            <div class="product-info">
+                <h1 id="title"></h1>
+                <p id="collection"></p>
+                <div id="stars">★★★☆☆ <span style="color:#888; font-size: 14px;">(3.20 - 41 Reviews)</span></div>
+                <div id="price"></div>
+                <p id="about">
+
+                </p>
+
+                <h4>COLOR</h4>
+                <div class="color-options">
+                    <span class="color-option color-red" data-color="Red" title="Red"></span>
+                    <span class="color-option color-blue" data-color="Blue" title="Blue"></span>
+                    <span class="color-option color-green" data-color="Green" title="Green"></span>
+                    <span class="color-option color-white" data-color="White" title="White"></span>
+                </div>
+
+                <h4>SIZE</h4>
+                <div class="size-options">
+                    <button>36</button>
+                    <button>38</button>
+                    <button>40</button>
+                    <button>42</button>
+                    <button>44</button>
+                </div>
+
+                <h4>QUANTITY</h4>
+                <div class="quantity-control">
+                    <button>-</button>
+                    <input type="number" value="1" min="1" max="10" style="width: 50px; text-align: center;">
+                    <button>+</button>
+                </div>
+
+                <button class="add-to-cart" onclick="addToCart()">ADD TO CART</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="summer-sale">
+        <div class="summer">SUMMER SALE</div>
+        <div class="off50">UP TO 50% OFF</div>
+        <div class="shopnow"><button class="shopnow-btn">SHOP NOW</button></div>
+    </div>
+
+
+    <footer class="foot">
+        <div class="full-wrapper">
+            <div class="about-wrapper">
+                <div class="about">
+                    <h4>More About Company</h4>
+                </div>
+                <div class="about-content">
+                    <p>
+                        Embrace timeless elegance with our Old Money Clothing collection—where sophistication meets
+                        heritage. We blend classic fashion with modern craftsmanship to bring you premium-quality
+                        apparel that exudes quiet luxury. Elevate your wardrobe with pieces inspired by the refined
+                        aesthetics of the past. Stay connected with us for exclusive collections and style updates.
+                    </p>
+                </div>
+            </div>
+            <div class="social-wrapper">
+                <h4>Contact Information</h4>
+                <ul class="contact-list">
+                    <li><i class="fa-solid fa-map-location"></i>67/2, Main street,Colombo</li>
+                    <li><i class="fa-solid fa-id-badge"></i>+94777678678</li>
+                    <li><i class="fa-solid fa-square-envelope"></i>oldmoneyclothing@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="social-icons">
+
+        </div>
+    </footer>
+</body>
+
+</html>

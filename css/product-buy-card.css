@@ -1,0 +1,183 @@
+
+
+.product-buy-card-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.product-buy-card {
+    display: flex;
+    margin-left: 20px;
+    gap: 40px;
+    width: 70%;
+
+}
+
+@media (max-width: 900px) {
+    .product-buy-card {
+        display: block;
+    }
+
+
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+}
+
+.product-info h1 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    min-width: 300px;
+    margin: 0;
+}
+#collection,#about, #star span{
+    font-family: "Poppins", sans-serif;
+}
+
+#price {
+    font-family: "Poppins", sans-serif;
+    font-size: 24px;
+    color: #333;
+    margin: 10px 0;
+}
+#about{
+    margin-bottom: 30px;
+}
+
+#stars {
+    color: gold;
+}
+
+.color-options span,
+.size-options button {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+
+}
+
+.color-option {
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.color-selected {
+    border: 3px solid #000;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #000;
+}
+
+.color-red {
+    background-color: red;
+}
+
+.color-blue {
+    background-color: #3fc1ff;
+}
+
+.color-green {
+    background-color: rgb(12, 44, 12);
+}
+
+.color-white {
+    background-color: rgb(215, 83, 30);
+    border: 2px solid #4b4b4b;
+}
+
+.color-options{
+    margin-bottom: 30px;
+}
+
+.size-options button {
+    border-radius: 4px;
+    
+
+}
+
+.size-selected {
+    border: 2px solid green;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    height: 53px;
+}
+
+.quantity-control button {
+    padding: 5px 10px;
+    margin: 0 10px;
+}
+.quantity-control input {
+    padding: 8px 1px;
+}
+
+.size-options{
+    padding-bottom: 30px;
+}
+
+button {
+    background-color: #f5f5f5;
+    border: 2px solid #ccc;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+button:hover {
+    background-color: #e0e0e0;
+    border-color: #999;
+}
+
+.size-options button {
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+}
+
+.size-options .size-selected {
+    background-color: #d4edda;
+    border-color: green;
+    color: green;
+}
+
+.quantity-control button {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #f0f0f0;
+    border-color: #bbb;
+}
+
+.add-to-cart {
+    background-color: #28a745;
+    color: white;
+    padding: 14px 28px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-to-cart:hover {
+    background-color: #218838;
+    transform: scale(1.03);
+}

@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+    margin: 0 0;
+    padding: 0 0;
+    box-sizing: border-box;
+}
+
+.product-card{
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    
+}
+
+
+
+
+.thambnail{
+    margin: 10px;
+    
+}
+
+.save{
+    font-family: "Poppins", sans-serif;
+    font-weight:600;
+    padding:2px 7px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: black;
+    color:white;
+    
+}
+
+.thambnail-image{
+    width: 100%;
+    
+}
+
+.product-details{
+    display: flex;
+    flex-direction: column;
+}
+.title{
+    font-family: "Poppins", sans-serif;
+    margin: 5px 10px 5px 11px;
+    width: 100%;
+    
+}
+
+.price{
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 14pt;
+    margin: 5px 10px 5px 11px;
+    width: 100%;
+
+}
+
+.thambnail-switch{
+    margin: 10px;
+}
+.thambnail-switch{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.thambnail-switch-1{
+    max-width: 38px;
+    max-height: 38px;
+}
+
+.thambnail-switch-image{
+    width: 100%;
+    max-height: 100%;
+}

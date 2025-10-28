@@ -1,0 +1,16 @@
+.product-list {
+  column-count: 3;
+  column-gap: 20px;
+  padding: 20px;
+}
+@media (max-width: 1024px) {
+  .product-list {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .product-list {
+    column-count: 1;
+  }
+}

@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    margin: 0 0;
+    padding: 0 0;
+    box-sizing: border-box;
+}
+
+nav{
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F1F0E9;
+    padding: 15px 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1)
+    
+}
+.h2{
+    font-size: 28pt;
+    font-family: "Playfair", serif;
+    font-style: normal;
+    font-weight: 900;
+    color: black;
+    padding: 5px 20px ;
+}
+ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0px 20px;
+}
+.li{
+    font-family: "Poppins", sans-serif;
+    list-style-type: none;
+    margin: 0px 20px;
+}
+.aNav{
+    color: black;
+    text-decoration: none;
+}
+.aNav:hover{
+    color: #09380f;
+    border-bottom: 3px solid #072e0c;
+    padding-bottom: 7px;
+}
+button{
+    font-size: 10pt;
+    font-weight: 500;
+    border: 8px solid transparent;
+    border-radius: 30rem;
+    padding: 15px 23px;
+    background-color: black;
+    color: #F1F0E9;
+    border-style: none;
+    margin: 0 10px;
+}
+button:hover{
+    font-weight: 500;
+    font-size: 10pt;
+    background-color: transparent;
+    border: 3px solid black;
+    color: black;
+    transition: all 0.4s ease-in;
+    transform: scale(0.9);
+}
+

@@ -1,0 +1,75 @@
+.header-background {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: overlay;
+    height: 500px;
+    margin-top: 85px;
+    padding-top: 100px;
+
+}
+
+
+.home-move-area {
+    margin-top: 100px;
+    width: 100%;
+    display: flex;
+
+}
+
+.home {
+    margin-left: 15%;
+
+
+}
+
+.sticky-area {
+    height: 300px;
+}
+
+.home-text2 {
+    font-family: "Playfair", serif;
+    font-size: 40pt;
+    color: #2F539B;
+
+}
+
+.home-text1 {
+    margin-left: 5px;
+    font-family: "Playfair", serif;
+    font-size: 22pt;
+    color: #4D71B9;
+
+}
+
+header .btn {
+    margin-top: 40px;
+    margin-left: 25%;
+    padding: 20px 20px;
+    height: 70px;
+    width: 200px;
+    background-color: transparent;
+    border-radius: 0;
+    color: #7D7D7D;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    border: 1px solid #4D71B9;
+}
+
+header .btn:hover {
+    border: 3px solid #4D71B9;
+    color: #2F539B;
+    background-color: transparent;
+    cursor: pointer;
+    transition-duration: 0.1s;
+}
+
+@media (max-width: 900px) {
+    .header-background {
+        align-items: center;
+        justify-items: center;
+    }
+
+
+
+}
