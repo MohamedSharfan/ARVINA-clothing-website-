@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Simple PHP cart handling for immediate functionality
+// Simple PHP cart handling
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
@@ -29,12 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/nav.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/footwear.css">
-    <link rel="stylesheet" href="css/product-card.css">
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="footwear.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <title>ARVINA | Footwear</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+    <title>ARVINA | Footwear Collection</title>
     <style>
         .cart-count {
             background: #e74c3c;
@@ -44,10 +44,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
             font-size: 12px;
             margin-left: 5px;
         }
+        .form-group {
+            margin: 10px 0;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
         select, input[type="number"] {
             width: 100%;
             padding: 8px;
-            margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
@@ -120,22 +128,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
                     <h3>Classic Oxford</h3>
                     <p class="price">Rs.12,500.00</p>
                     
-                    <form method="POST">
+                    <form method="POST" class="product-form">
                         <input type="hidden" name="product_id" value="FW001">
                         <input type="hidden" name="product_name" value="Classic Oxford">
                         <input type="hidden" name="price" value="12500.00">
                         <input type="hidden" name="image_url" value="pics/classic.webp">
                         <input type="hidden" name="color" value="black">
                         
-                        <select name="size" required>
-                            <option value="">Select Size</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                        </select>
+                        <div class="form-group">
+                            <label>Size:</label>
+                            <select name="size" required>
+                                <option value="">Select Size</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
                         
-                        <input type="number" name="quantity" value="1" min="1" max="10" required>
+                        <div class="form-group">
+                            <label>Quantity:</label>
+                            <input type="number" name="quantity" value="1" min="1" max="10" required>
+                        </div>
                         
                         <button type="submit" class="add-to-cart">ADD TO CART</button>
                     </form>
@@ -150,21 +164,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
                     <h3>Modern Loafers</h3>
                     <p class="price">Rs.10,800.00</p>
                     
-                    <form method="POST">
+                    <form method="POST" class="product-form">
                         <input type="hidden" name="product_id" value="FW002">
                         <input type="hidden" name="product_name" value="Modern Loafers">
                         <input type="hidden" name="price" value="10800.00">
                         <input type="hidden" name="image_url" value="pics/loaferfront.webp">
                         <input type="hidden" name="color" value="brown">
                         
-                        <select name="size" required>
-                            <option value="">Select Size</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                        </select>
+                        <div class="form-group">
+                            <label>Size:</label>
+                            <select name="size" required>
+                                <option value="">Select Size</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                            </select>
+                        </div>
                         
-                        <input type="number" name="quantity" value="1" min="1" max="10" required>
+                        <div class="form-group">
+                            <label>Quantity:</label>
+                            <input type="number" name="quantity" value="1" min="1" max="10" required>
+                        </div>
                         
                         <button type="submit" class="add-to-cart">ADD TO CART</button>
                     </form>
@@ -179,22 +199,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
                     <h3>Elegant Pumps</h3>
                     <p class="price">Rs.9,900.00</p>
                     
-                    <form method="POST">
+                    <form method="POST" class="product-form">
                         <input type="hidden" name="product_id" value="FW003">
                         <input type="hidden" name="product_name" value="Elegant Pumps">
                         <input type="hidden" name="price" value="9900.00">
                         <input type="hidden" name="image_url" value="pics/heelsside.jpeg.jpg">
                         <input type="hidden" name="color" value="black">
                         
-                        <select name="size" required>
-                            <option value="">Select Size</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                        </select>
+                        <div class="form-group">
+                            <label>Size:</label>
+                            <select name="size" required>
+                                <option value="">Select Size</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                            </select>
+                        </div>
                         
-                        <input type="number" name="quantity" value="1" min="1" max="10" required>
+                        <div class="form-group">
+                            <label>Quantity:</label>
+                            <input type="number" name="quantity" value="1" min="1" max="10" required>
+                        </div>
                         
                         <button type="submit" class="add-to-cart">ADD TO CART</button>
                     </form>
@@ -209,22 +235,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
                     <h3>Sporty Sneakers</h3>
                     <p class="price">Rs.8,500.00</p>
                     
-                    <form method="POST">
+                    <form method="POST" class="product-form">
                         <input type="hidden" name="product_id" value="FW004">
                         <input type="hidden" name="product_name" value="Sporty Sneakers">
                         <input type="hidden" name="price" value="8500.00">
                         <input type="hidden" name="image_url" value="pics/sneakerfront.jpeg">
                         <input type="hidden" name="color" value="white">
                         
-                        <select name="size" required>
-                            <option value="">Select Size</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                        </select>
+                        <div class="form-group">
+                            <label>Size:</label>
+                            <select name="size" required>
+                                <option value="">Select Size</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                            </select>
+                        </div>
                         
-                        <input type="number" name="quantity" value="1" min="1" max="10" required>
+                        <div class="form-group">
+                            <label>Quantity:</label>
+                            <input type="number" name="quantity" value="1" min="1" max="10" required>
+                        </div>
                         
                         <button type="submit" class="add-to-cart">ADD TO CART</button>
                     </form>
@@ -242,26 +274,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
             </div>
         </section>
 
+        <!-- Customer Support -->
         <section class="cutomersupport">
             <div class="sec">
                 <div class="freeShipping">
-                    <span class="material-symbols-outlined" style="font-size: 22pt;">
-                        package_2
-                    </span>
+                    <span class="material-symbols-outlined">package_2</span>
                     <div class="shippingtxt">FREE SHIPPING</div>
                     <div class="shippingpara">We offer free worldwide shipping on orders over Rs.50000.00</div>
                 </div>
                 <div class="cutomersup">
-                    <span class="material-symbols-outlined">
-                        support_agent
-                    </span>
+                    <span class="material-symbols-outlined">support_agent</span>
                     <div class="custtxt">CUSTOMER SERVICE</div>
                     <div class="shippingpara">Our customer service team will available Monday till Friday 9am to 9pm</div>
                 </div>
                 <div class="payment">
-                    <span class="material-symbols-outlined">
-                        sell
-                    </span>
+                    <span class="material-symbols-outlined">sell</span>
                     <div class="custtxt">SECURE PAYMENT</div>
                     <div class="shippingpara">We use trusted encryption technology and secure payment gateways.</div>
                 </div>
@@ -269,6 +296,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
         </section>
     </div>
 
+    <!-- Footer -->
     <footer class="foot">
         <div class="full-wrapper">
             <div class="about-wrapper">
@@ -276,28 +304,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
                     <h4>More About Company</h4>
                 </div>
                 <div class="about-content">
-                    <p>
-                        Embrace timeless elegance with our Old Money Clothing collection—where sophistication meets heritage. We blend classic fashion with modern craftsmanship to bring you premium-quality apparel that exudes quiet luxury. Elevate your wardrobe with pieces inspired by the refined aesthetics of the past. Stay connected with us for exclusive collections and style updates.   
-                    </p>
+                    <p>Embrace timeless elegance with our Old Money Clothing collection—where sophistication meets heritage. We blend classic fashion with modern craftsmanship to bring you premium-quality apparel that exudes quiet luxury.</p>
                 </div>
             </div>
             <div class="social-wrapper" id="contact">
                 <h4>Contact Information</h4>
                 <ul class="contact-list">
-                    <li><i class="fa-solid fa-map-location"></i>67/2, Main street,Colombo</li>
+                    <li><i class="fa-solid fa-map-location"></i>67/2, Main street, Colombo</li>
                     <li><i class="fa-solid fa-id-badge"></i>+94777678678</li>
                     <li><i class="fa-solid fa-square-envelope"></i>oldmoneyclothing@gmail.com</li>
                 </ul>
             </div>
         </div>
     </footer>
-
-    <script>
-        // Simple function to update cart count
-        function updateCartCount() {
-            // This will refresh the page to show updated cart count
-            window.location.reload();
-        }
-    </script>
 </body>
 </html>

@@ -67,7 +67,7 @@ $customerName = isset($_SESSION['customer_name']) ? $_SESSION['customer_name'] :
             <a href="#c"><div class="us"><button class="btn1">BEST SELLERS</button></div></a>
             <div class="men"><a href="./men/men.html"><button class="btn1">MEN</button></a></div>
             <div class="women"><a href="./women/women.html"><button class="btn1">WOMEN</button></a></div>
-            <div class="shoes"><a href="./footwear.html"><button class="btn1">FOOTWEAR</button></a></div>
+            <div class="shoes"><a href="./footwear.php"><button class="btn1">FOOTWEAR</button></a></div>
         </div>
         <div class="oldmoney-text"><h5>OLD MONEY FOR THE MODERN WORLD</h5></div><a name="c"></a>
         <div class="oldmoney-text"><p>Crafted for those who appreciate the quiet luxury of well-made things. Every detail, every stitch, made to last.</p></div>
