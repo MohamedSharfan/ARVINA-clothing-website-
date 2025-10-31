@@ -2,14 +2,17 @@
 
 session_start();
 
-
 if (isset($_SESSION['customer_logged_in']) && $_SESSION['customer_logged_in'] === true) {
     header('Location: home.php');
     exit;
 }
 
-$error = '';
+if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
+    header('Location: admin/admin_dashboard.php');
+    exit;
+}
 
+$error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once 'php/db_connect.php';
@@ -21,40 +24,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Please enter both username and password';
     } else {
         $conn = getDBConnection();
-        $stmt = $conn->prepare("SELECT customer_id, username, password, email, full_name, phone FROM customer_users WHERE username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
         
-        if ($result->num_rows === 1) {
-            $customer = $result->fetch_assoc();
+        $adminStmt = $conn->prepare("SELECT admin_id, username, password FROM admin_users WHERE username = ?");
+        $adminStmt->bind_param("s", $username);
+        $adminStmt->execute();
+        $adminResult = $adminStmt->get_result();
+        
+        if ($adminResult->num_rows === 1) {
+            $admin = $adminResult->fetch_assoc();
             
-           
-            if ($password === $customer['password']) {
+            if ($password === 'admin123') {
+                $_SESSION['admin_logged_in'] = true;
+                $_SESSION['admin_id'] = $admin['admin_id'];
+                $_SESSION['admin_username'] = $admin['username'];
                 
-                $_SESSION['customer_logged_in'] = true;
-                $_SESSION['customer_id'] = $customer['customer_id'];
-                $_SESSION['customer_username'] = $customer['username'];
-                $_SESSION['customer_name'] = $customer['full_name'];
-                $_SESSION['customer_email'] = $customer['email'];
-                $_SESSION['customer_phone'] = $customer['phone'];
+                $adminStmt->close();
+                closeDBConnection($conn);
                 
-                
-                $updateStmt = $conn->prepare("UPDATE customer_users SET last_login = NOW() WHERE customer_id = ?");
-                $updateStmt->bind_param("i", $customer['customer_id']);
-                $updateStmt->execute();
-                $updateStmt->close();
-                
-                header('Location: home.php');
+                header('Location: admin/admin_dashboard.php');
                 exit;
             } else {
                 $error = 'Invalid username or password';
             }
         } else {
-            $error = 'Invalid username or password';
+            $adminStmt->close();
+            
+            $stmt = $conn->prepare("SELECT customer_id, username, password, email, full_name, phone FROM customer_users WHERE username = ?");
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            
+            if ($result->num_rows === 1) {
+                $customer = $result->fetch_assoc();
+                
+                if ($password === $customer['password']) {
+                    $_SESSION['customer_logged_in'] = true;
+                    $_SESSION['customer_id'] = $customer['customer_id'];
+                    $_SESSION['customer_username'] = $customer['username'];
+                    $_SESSION['customer_name'] = $customer['full_name'];
+                    $_SESSION['customer_email'] = $customer['email'];
+                    $_SESSION['customer_phone'] = $customer['phone'];
+                    
+                    $updateStmt = $conn->prepare("UPDATE customer_users SET last_login = NOW() WHERE customer_id = ?");
+                    $updateStmt->bind_param("i", $customer['customer_id']);
+                    $updateStmt->execute();
+                    $updateStmt->close();
+                    
+                    $stmt->close();
+                    closeDBConnection($conn);
+                    
+                    header('Location: home.php');
+                    exit;
+                } else {
+                    $error = 'Invalid username or password';
+                }
+            } else {
+                $error = 'Invalid username or password';
+            }
+            
+            $stmt->close();
         }
         
-        $stmt->close();
         closeDBConnection($conn);
     }
 }
@@ -77,8 +107,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p>Timeless Elegance</p>
                 </div>
                 
-                <h2><i class="fa-solid fa-user"></i> Customer Login</h2>
-                <p class="subtitle">Login to access your account and shop</p>
+                <h2><i class="fa-solid fa-right-to-bracket"></i> Login</h2>
+                <p class="subtitle">Admin & Customer Login Portal</p>
                 
                 <?php if (!empty($error)): ?>
                     <div class="error-message">
@@ -104,13 +134,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 <div class="demo-credentials">
                     <p><strong><i class="fa-solid fa-info-circle"></i> Demo Credentials:</strong></p>
-                    <p>Username: <code>user1</code></p>
-                    <p>Password: <code>user123</code></p>
+                    <p><strong>Admin:</strong> Username: <code>admin</code> | Password: <code>admin123</code></p>
+                    <p><strong>Customer:</strong> Username: <code>user1</code> | Password: <code>user123</code></p>
                 </div>
                 
                 <div class="register-link">
-                    <p>Don't have an account? <a href="register.php">Register here</a></p>
-                </div>
+                               </div>
             </div>
         </div>
     </div>
