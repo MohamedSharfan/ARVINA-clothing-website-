@@ -1,7 +1,9 @@
 <?php
 session_start();
 
-// Simple PHP cart handling
+$isLoggedIn = isset($_SESSION['customer_logged_in']) && $_SESSION['customer_logged_in'] === true;
+$customerName = isset($_SESSION['customer_name']) ? $_SESSION['customer_name'] : 'User';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
@@ -66,20 +68,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
         <nav>
             <div class="h2">A R V I N A</div>
             <ul>
-                <li class="li"><a href="home.html" class="aNav">HOME</a></li>
+                <li class="li"><a href="home.php" class="aNav">HOME</a></li>
                 <li class="li"><a href="#off" class="aNav">OFFERS</a></li>
+                <li class="li"><a href="" class="aNav">FAQ</a></li>
                 <li class="li"><a href="about.html" class="aNav">ABOUT US</a></li>
-                <li class="li"><a href="#contact" class="aNav">CONTACT</a></li>
-                <li class="li">
+                <li class="li"><a href="contact.php" class="aNav">CONTACT</a></li>
+                <li class="li cart-link">
                     <a href="cart.php" class="aNav">
-                        <i class="fas fa-shopping-bag"></i>
-                        CART 
-                        <?php if(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0): ?>
-                            <span class="cart-count"><?php echo count($_SESSION['cart']); ?></span>
-                        <?php endif; ?>
+                        <i class="fa-solid fa-shopping-cart"></i> CART
+                        <span id="cart-count" style="display:none; background-color: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; margin-left: 5px;">0</span>
                     </a>
                 </li>
-                <button onclick="displayLogin()">LOGIN</button>
+                <?php if ($isLoggedIn): ?>
+                <li class="li user-welcome">
+                    <span style="color: #3498db;"><i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($customerName); ?></span>
+                </li>
+                <button onclick="window.location.href='logout.php'"><i class="fa-solid fa-sign-out-alt"></i> LOGOUT</button>
+                <?php else: ?>
+                <button onclick="window.location.href='login.php'">LOGIN</button>
+                <?php endif; ?>
             </ul>
         </nav>
     </header>

@@ -65,8 +65,8 @@ $customerName = isset($_SESSION['customer_name']) ? $_SESSION['customer_name'] :
             <div class="all"><a href="./accessories.html"><button class="btn1">ACCESSORIES</button></a></div>
             <div class="bestsellers"><a href=""><button class="btn1">FAQ</button></a></div>
             <a href="#c"><div class="us"><button class="btn1">BEST SELLERS</button></div></a>
-            <div class="men"><a href="./men/men.html"><button class="btn1">MEN</button></a></div>
-            <div class="women"><a href="./women/women.html"><button class="btn1">WOMEN</button></a></div>
+            <div class="men"><a href="./men/men.php"><button class="btn1">MEN</button></a></div>
+            <div class="women"><a href="./women/women.php"><button class="btn1">WOMEN</button></a></div>
             <div class="shoes"><a href="./footwear.php"><button class="btn1">FOOTWEAR</button></a></div>
         </div>
         <div class="oldmoney-text"><h5>OLD MONEY FOR THE MODERN WORLD</h5></div><a name="c"></a>
