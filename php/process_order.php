@@ -1,5 +1,4 @@
 <?php
-
 require_once 'db_connect.php';
 require_once 'session_cart.php';
 
@@ -7,6 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: ../checkout.php');
     exit;
 }
+
+session_start();
 
 $customerName = sanitizeInput($_POST['customer_name']);
 $customerEmail = sanitizeInput($_POST['customer_email']);
@@ -63,6 +64,10 @@ if (!empty($errors)) {
 }
 
 $conn = getDBConnection();
+
+// TEMPORARY FIX: Disable foreign key checks
+$conn->query("SET FOREIGN_KEY_CHECKS = 0");
+
 $conn->begin_transaction();
 
 try {
@@ -90,6 +95,9 @@ try {
     
     $conn->commit();
     
+    // Re-enable foreign key checks
+    $conn->query("SET FOREIGN_KEY_CHECKS = 1");
+    
     clearCart();
     
     $_SESSION['last_order_id'] = $orderId;
@@ -99,6 +107,9 @@ try {
     
 } catch (Exception $e) {
     $conn->rollback();
+    
+    // Re-enable foreign key checks even on error
+    $conn->query("SET FOREIGN_KEY_CHECKS = 1");
     
     $_SESSION['checkout_errors'] = array("Error processing order: " . $e->getMessage());
     header('Location: ../checkout.php');

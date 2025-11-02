@@ -60,10 +60,15 @@ $cartCount = getCartItemCount();
         <?php else: ?>
             <div class="cart-content">
                 <div class="cart-items">
-                    <?php foreach ($cartItems as $cartKey => $item): ?>
+                    <?php foreach ($cartItems as $cartKey => $item): 
+                        $imagePath = $item['image_url'];
+                        if (strpos($imagePath, '../') === 0) {
+                            $imagePath = substr($imagePath, 3);
+                        }
+                    ?>
                         <div class="cart-item" data-cart-key="<?php echo htmlspecialchars($cartKey); ?>">
                             <div class="item-image">
-                                <img src="<?php echo htmlspecialchars($item['image_url']); ?>" alt="<?php echo htmlspecialchars($item['product_name']); ?>">
+                                <img src="<?php echo htmlspecialchars($imagePath); ?>" alt="<?php echo htmlspecialchars($item['product_name']); ?>">
                             </div>
                             <div class="item-details">
                                 <h3><?php echo htmlspecialchars($item['product_name']); ?></h3>

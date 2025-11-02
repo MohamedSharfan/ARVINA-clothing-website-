@@ -122,9 +122,14 @@ $customerPhone = isset($_SESSION['customer_phone']) ? $_SESSION['customer_phone'
             <div class="order-summary-section">
                 <h2>Order Summary</h2>
                 <div class="summary-items">
-                    <?php foreach ($cartItems as $item): ?>
+                    <?php foreach ($cartItems as $item): 
+                        $imagePath = $item['image_url'];
+                        if (strpos($imagePath, '../') === 0) {
+                            $imagePath = substr($imagePath, 3);
+                        }
+                    ?>
                         <div class="summary-item">
-                            <img src="<?php echo htmlspecialchars($item['image_url']); ?>" alt="<?php echo htmlspecialchars($item['product_name']); ?>">
+                            <img src="<?php echo htmlspecialchars($imagePath); ?>" alt="<?php echo htmlspecialchars($item['product_name']); ?>">
                             <div class="summary-item-details">
                                 <h4><?php echo htmlspecialchars($item['product_name']); ?></h4>
                                 <p><?php echo htmlspecialchars($item['color']); ?> | <?php echo htmlspecialchars($item['size']); ?> | Qty: <?php echo $item['quantity']; ?></p>
