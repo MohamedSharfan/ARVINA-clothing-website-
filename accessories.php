@@ -35,7 +35,7 @@ $cartCount = getCartItemCount();
             <li class="li"><a href="home.php" class="aNav active">HOME</a></li>
             <li class="li"><a href="#" class="aNav">OFFERS</a></li>
             <li class="li"><a href="#" class="aNav">FAQ</a></li>
-            <li class="li"><a href="./about.html" class="aNav">ABOUT US</a></li>
+            <li class="li"><a href="./about.php" class="aNav">ABOUT US</a></li>
             <li class="li"><a href="contact.php" class="aNav">CONTACT</a></li>
 
             <!-- 🛒 CART LINK -->

@@ -9,50 +9,50 @@ $form_data = array();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once 'php/db_connect.php';
-    
+
     $name = sanitizeInput($_POST['name']);
     $email = sanitizeInput($_POST['email']);
     $phone = sanitizeInput($_POST['phone']);
     $subject = sanitizeInput($_POST['subject']);
     $message = sanitizeInput($_POST['message']);
-    
+
     $form_data = $_POST;
-    
-    
+
+
     $errors = array();
-    
+
     if (strlen($name) < 3) {
         $errors[] = "Name must be at least 3 characters long";
     }
-    
+
     if (!validateEmail($email)) {
         $errors[] = "Please enter a valid email address";
     }
-    
+
     if (!empty($phone) && !validatePhone($phone)) {
         $errors[] = "Please enter a valid phone number";
     }
-    
+
     if (strlen($subject) < 5) {
         $errors[] = "Subject must be at least 5 characters long";
     }
-    
+
     if (strlen($message) < 10) {
         $errors[] = "Message must be at least 10 characters long";
     }
-    
+
     if (empty($errors)) {
         $conn = getDBConnection();
         $stmt = $conn->prepare("INSERT INTO contact_messages (name, email, phone, subject, message) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssss", $name, $email, $phone, $subject, $message);
-        
+
         if ($stmt->execute()) {
             $success_message = "Thank you for contacting us! We will get back to you soon.";
-            $form_data = array(); 
+            $form_data = array();
         } else {
             $error_message = "Error sending message. Please try again.";
         }
-        
+
         $stmt->close();
         closeDBConnection($conn);
     } else {
@@ -62,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="./java-script/cart.js"></script>
     <title>Contact Us - Arvina</title>
 </head>
+
 <body>
     <header>
         <nav>
@@ -98,15 +100,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </ul>
         </nav>
     </header>
-<div style="padding: 40px;"></div>
+    <div style="padding: 40px;"></div>
     <div class="contact-container">
         <h1 class="contact-title">Contact Us</h1>
         <p class="contact-subtitle">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
-        
+
         <div class="contact-content">
             <div class="contact-info-section">
                 <h2>Get in Touch</h2>
-                
+
                 <div class="info-box">
                     <div class="info-icon">
                         <i class="fa-solid fa-map-location-dot"></i>
@@ -116,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <p>67/2, Main Street<br>Colombo, Sri Lanka</p>
                     </div>
                 </div>
-                
+
                 <div class="info-box">
                     <div class="info-icon">
                         <i class="fa-solid fa-phone"></i>
@@ -126,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <p>+94 777 678 678<br>Monday - Friday, 9AM - 9PM</p>
                     </div>
                 </div>
-                
+
                 <div class="info-box">
                     <div class="info-icon">
                         <i class="fa-solid fa-envelope"></i>
@@ -136,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <p>oldmoneyclothing@gmail.com<br>We reply within 24 hours</p>
                     </div>
                 </div>
-                
+
                 <div class="social-media">
                     <h3>Follow Us</h3>
                     <div class="social-icons">
@@ -147,52 +149,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
             </div>
-            
+
             <div class="contact-form-section">
                 <h2>Send Us a Message</h2>
-                
+
                 <?php if (!empty($success_message)): ?>
                     <div class="alert alert-success">
                         <i class="fa-solid fa-check-circle"></i> <?php echo $success_message; ?>
                     </div>
                 <?php endif; ?>
-                
+
                 <?php if (!empty($error_message)): ?>
                     <div class="alert alert-error">
                         <i class="fa-solid fa-exclamation-circle"></i> <?php echo $error_message; ?>
                     </div>
                 <?php endif; ?>
-                
+
                 <form method="POST" action="" id="contactForm">
                     <div class="form-group">
                         <label for="name">Full Name <span class="required">*</span></label>
-                        <input type="text" id="name" name="name" required 
-                               value="<?php echo isset($form_data['name']) ? htmlspecialchars($form_data['name']) : ''; ?>">
+                        <input type="text" id="name" name="name" required
+                            value="<?php echo isset($form_data['name']) ? htmlspecialchars($form_data['name']) : ''; ?>">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="email">Email Address <span class="required">*</span></label>
                         <input type="email" id="email" name="email" required
-                               value="<?php echo isset($form_data['email']) ? htmlspecialchars($form_data['email']) : ''; ?>">
+                            value="<?php echo isset($form_data['email']) ? htmlspecialchars($form_data['email']) : ''; ?>">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
                         <input type="tel" id="phone" name="phone" placeholder="+94 XXX XXX XXX"
-                               value="<?php echo isset($form_data['phone']) ? htmlspecialchars($form_data['phone']) : ''; ?>">
+                            value="<?php echo isset($form_data['phone']) ? htmlspecialchars($form_data['phone']) : ''; ?>">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="subject">Subject <span class="required">*</span></label>
                         <input type="text" id="subject" name="subject" required
-                               value="<?php echo isset($form_data['subject']) ? htmlspecialchars($form_data['subject']) : ''; ?>">
+                            value="<?php echo isset($form_data['subject']) ? htmlspecialchars($form_data['subject']) : ''; ?>">
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="message">Message <span class="required">*</span></label>
                         <textarea id="message" name="message" rows="5" required><?php echo isset($form_data['message']) ? htmlspecialchars($form_data['message']) : ''; ?></textarea>
                     </div>
-                    
+
                     <button type="submit" class="submit-btn">
                         <i class="fa-solid fa-paper-plane"></i> Send Message
                     </button>
@@ -226,4 +228,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </footer>
 </body>
+
 </html>

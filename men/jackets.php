@@ -69,15 +69,14 @@ $cartCount = getCartItemCount(); // ✅ Get cart count from session
         <nav>
             <div class="h2">A R V I N A</div>
             <ul>
-                <li class="li"><a href="home.php" class="aNav active">HOME</a></li>
+               <li class="li"><a href="../home.php" class="aNav active">HOME</a></li>
                 <li class="li"><a href="#" class="aNav">OFFERS</a></li>
                 <li class="li"><a href="#" class="aNav">FAQ</a></li>
-                <li class="li"><a href="./about.html" class="aNav">ABOUT US</a></li>
-                <li class="li"><a href="contact.php" class="aNav">CONTACT</a></li>
-                
+                <li class="li"><a href="../about.php" class="aNav">ABOUT US</a></li>
+                <li class="li"><a href="../contact.php" class="aNav">CONTACT</a></li>
                 <!-- 🛒 CART LINK -->
                 <li class="li cart-link">
-                    <a href="cart.php" class="aNav">
+                    <a href="../cart.php" class="aNav">
                         <i class="fa-solid fa-shopping-cart"></i> CART
                         <span id="cart-count" style="<?php echo $cartCount > 0 ? 'display:inline-block;' : 'display:none;'; ?> background-color:red; color:white; border-radius:50%; padding:2px 6px; font-size:12px; margin-left:5px;">
                             <?php echo $cartCount; ?>
@@ -111,21 +110,22 @@ $cartCount = getCartItemCount(); // ✅ Get cart count from session
     <div class="sticky-area">
         <div class="shop-nav">
             <div class="nav-align">
-                <div class="all"><button class="btn1" onclick="window.location.href = '../home.html';">ALL</button></div>
                 <div class="bestsellers"><button class="btn1"
-                        onclick="window.location.href = '../bestsellers/bestsellers.html';">BESTSELLERS</button></div>
-                <div class="us"><button class="btn1" onclick="window.location.href = '../about/about.html';">THE
+                        onclick="window.location.href ='#' ">BESTSELLERS</button></div>
+                <div class="us"><button class="btn1" onclick="window.location.href = '../about.php';">THE
                         TEAM</button></div>
-                <div class="men"><button class="btn1" onclick="window.location.href = '../men/men.html';">MEN</button>
+                <div class="men"><button class="btn1" onclick="window.location.href = '../men/men.php';">MEN</button>
                 </div>
                 <div class="women"><button class="btn1"
-                        onclick="window.location.href = '../women/women.html';">WOMEN</button></div>
+                        onclick="window.location.href = '../women/women.php';">WOMEN</button></div>
+
                 <div class="watches"><button class="btn1"
-                        onclick="window.location.href = '../watches/watches.html';">WATCHES</button></div>
+                        onclick="window.location.href = '#';">WATCHES</button></div>
                 <div class="shoes"><button class="btn1"
-                        onclick="window.location.href = '../shoes/shoes.html';">SHOES</button></div>
+                        onclick="window.location.href = '#';">SHOES</button></div>
             </div>
         </div>
+
     </div>
 
     <div class="product-list"></div>

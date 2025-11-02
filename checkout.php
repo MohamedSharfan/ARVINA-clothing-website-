@@ -1,6 +1,6 @@
 <?php
 
-require_once 'php/auth_check.php'; 
+require_once 'php/auth_check.php';
 require_once 'php/session_cart.php';
 
 $cartItems = getCartItems();
@@ -18,6 +18,7 @@ $customerPhone = isset($_SESSION['customer_phone']) ? $_SESSION['customer_phone'
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,6 +31,7 @@ $customerPhone = isset($_SESSION['customer_phone']) ? $_SESSION['customer_phone'
     <script src="./java-script/cart.js"></script>
     <title>Checkout - Arvina</title>
 </head>
+
 <body>
     <header>
         <nav>
@@ -56,7 +58,7 @@ $customerPhone = isset($_SESSION['customer_phone']) ? $_SESSION['customer_phone'
 
     <div class="checkout-container">
         <h1 class="checkout-title">Checkout</h1>
-        
+
         <div class="checkout-content">
             <div class="checkout-form-section">
                 <h2>Billing Information</h2>
@@ -122,7 +124,7 @@ $customerPhone = isset($_SESSION['customer_phone']) ? $_SESSION['customer_phone'
             <div class="order-summary-section">
                 <h2>Order Summary</h2>
                 <div class="summary-items">
-                    <?php foreach ($cartItems as $item): 
+                    <?php foreach ($cartItems as $item):
                         $imagePath = $item['image_url'];
                         if (strpos($imagePath, '../') === 0) {
                             $imagePath = substr($imagePath, 3);
@@ -186,19 +188,19 @@ $customerPhone = isset($_SESSION['customer_phone']) ? $_SESSION['customer_phone'
         // Form validation
         document.getElementById('checkout-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             let isValid = true;
-            
+
             // Clear previous errors
             document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
-            
+
             // Validate name
             const name = document.getElementById('customer_name').value.trim();
             if (name.length < 3) {
                 document.getElementById('name-error').textContent = 'Name must be at least 3 characters';
                 isValid = false;
             }
-            
+
             // Validate email
             const email = document.getElementById('customer_email').value.trim();
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -206,7 +208,7 @@ $customerPhone = isset($_SESSION['customer_phone']) ? $_SESSION['customer_phone'
                 document.getElementById('email-error').textContent = 'Please enter a valid email address';
                 isValid = false;
             }
-            
+
             // Validate phone
             const phone = document.getElementById('customer_phone').value.trim();
             const phonePattern = /^[0-9+\s-]{10,}$/;
@@ -214,39 +216,40 @@ $customerPhone = isset($_SESSION['customer_phone']) ? $_SESSION['customer_phone'
                 document.getElementById('phone-error').textContent = 'Please enter a valid phone number';
                 isValid = false;
             }
-            
+
             // Validate address
             const address = document.getElementById('customer_address').value.trim();
             if (address.length < 10) {
                 document.getElementById('address-error').textContent = 'Please enter a complete address';
                 isValid = false;
             }
-            
+
             // Validate city
             const city = document.getElementById('city').value.trim();
             if (city.length < 2) {
                 document.getElementById('city-error').textContent = 'Please enter a valid city';
                 isValid = false;
             }
-            
+
             // Validate postal code
             const postal = document.getElementById('postal_code').value.trim();
             if (postal.length < 4) {
                 document.getElementById('postal-error').textContent = 'Please enter a valid postal code';
                 isValid = false;
             }
-            
+
             // Validate payment method
             const payment = document.getElementById('payment_method').value;
             if (!payment) {
                 document.getElementById('payment-error').textContent = 'Please select a payment method';
                 isValid = false;
             }
-            
+
             if (isValid) {
                 this.submit();
             }
         });
     </script>
 </body>
+
 </html>

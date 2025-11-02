@@ -183,7 +183,7 @@ if ($product_id <= 0) {
             <div class="h2">A R V I N A</div>
             <ul>
                 <li class="li"><a href="#o" class="aNav">OFFERS</a></li>
-                <li class="li"><a href="./about.html" class="aNav">ABOUT US</a></li>
+                <li class="li"><a href="./about.php" class="aNav">ABOUT US</a></li>
                 <li class="li"><a href="contact.php" class="aNav">CONTACT</a></li>
                 <li class="li cart-link">
                     <a href="cart.php" class="aNav">
