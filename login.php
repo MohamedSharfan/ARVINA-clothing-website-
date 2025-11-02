@@ -166,14 +166,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signup'])) {
         }
 
         .toggle-form a {
-            color: #9B6B9E;
+            color: #3498db;
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s ease;
         }
 
         .toggle-form a:hover {
-            color: #7C5580;
+            color: #2c3e50;
             text-decoration: underline;
         }
     </style>
