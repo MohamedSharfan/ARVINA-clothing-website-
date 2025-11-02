@@ -234,3 +234,23 @@ CREATE TABLE IF NOT EXISTS contact_messages (
     INDEX idx_status (status),
     INDEX idx_date (created_at)
 );
+
+
+-- janith uhtpala------------------------------------------------------------------------
+
+CREATE TABLE men_categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    thumbnail VARCHAR(255) NOT NULL,
+    link VARCHAR(255) NOT NULL
+);
+
+INSERT INTO men_categories (title, thumbnail, link) VALUES
+('MENS SHIRTS', '../assest/men/shirts/(1).jpeg', './shirts.html'),
+('MENS SUITS', '../assest/men/suits/(1).jpg', './suits.html'),
+('MENS PANTS', '../assest/men/pants/(1).jpg', './pants.html'),
+('MENS JACKETS', '../assest/men/jackets/(1).jpg', './jackets.html'),
+('MEN ACCESSORIES', '../assest/men/accessories/(1).jpg', './accessories.html');
+
+
+-----------------------------------------------------------------------------------------
