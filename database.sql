@@ -227,3 +227,36 @@ VALUES
 ('Sunglasses', 1, 5, 'Designer sunglasses', 6800.00, 5800.00, '../assest/men/accessories/(11).jpg', 25),
 ('Watch', 1, 5, 'Premium wristwatch', 15000.00, 12500.00, '../assest/men/accessories/(12).jpg', 15),
 ('Messenger Bag', 1, 5, 'Leather messenger bag', 8500.00, 7300.00, '../assest/men/accessories/(13).jpg', 20);
+
+
+INSERT INTO products 
+(product_name, category_id, subcategory_id, description, price, discount_price, image_url, stock_quantity)
+VALUES
+('Classic Dress Pants', 1, 3, 'Professional dress pants for formal occasions', 6500.00, 5500.00, '../assest/men/pants/(1).jpg', 30),
+('Slim Fit Chinos', 1, 3, 'Modern slim fit chino pants', 5800.00, 5000.00, '../assest/men/pants/(2).jpg', 25),
+('Cargo Pants', 1, 3, 'Functional cargo pants with multiple pockets', 5200.00, 4500.00, '../assest/men/pants/(3).jpg', 30),
+('Pleated Trousers', 1, 3, 'Classic pleated trousers', 7200.00, 6000.00, '../assest/men/pants/(4).jpg', 20),
+('Khaki Pants', 1, 3, 'Versatile khaki casual pants', 4900.00, 4300.00, '../assest/men/pants/(5).jpg', 35),
+('Corduroy Pants', 1, 3, 'Stylish corduroy pants', 6800.00, 5900.00, '../assest/men/pants/(6).jpg', 25),
+('Flat Front Pants', 1, 3, 'Modern flat front design', 6300.00, 5500.00, '../assest/men/pants/(7).jpg', 30),
+('Linen Pants', 1, 3, 'Breathable linen pants', 5500.00, 4800.00, '../assest/men/pants/(8).jpg', 40),
+('Jogger Pants', 1, 3, 'Comfortable jogger style pants', 4500.00, 4000.00, '../assest/men/pants/(9).jpg', 35),
+('Check Pattern Pants', 1, 3, 'Trendy check pattern pants', 6000.00, 5200.00, '../assest/men/pants/(10).jpg', 25);
+
+
+
+INSERT INTO products 
+(product_name, category_id, subcategory_id, description, price, discount_price, image_url, stock_quantity)
+VALUES
+('Leather Jacket', 1, 4, 'Classic leather jacket for stylish look', 18500.00, 15500.00, '../assest/men/jackets/(1).jpg', 20),
+('Denim Jacket', 1, 4, 'Timeless denim jacket', 8900.00, 7400.00, '../assest/men/jackets/(2).jpg', 25),
+('Bomber Jacket', 1, 4, 'Trendy bomber style jacket', 12500.00, 10500.00, '../assest/men/jackets/(3).jpg', 30),
+('Puffer Jacket', 1, 4, 'Warm puffer jacket for cold weather', 15800.00, 13300.00, '../assest/men/jackets/(4).jpg', 25),
+('Windbreaker', 1, 4, 'Lightweight windbreaker jacket', 7500.00, 6300.00, '../assest/men/jackets/(5).jpg', 30),
+('Blazer Jacket', 1, 4, 'Smart blazer jacket', 14000.00, 11800.00, '../assest/men/jackets/(6).jpg', 20),
+('Field Jacket', 1, 4, 'Functional field jacket with pockets', 11500.00, 9700.00, '../assest/men/jackets/(7).jpg', 20),
+('Varsity Jacket', 1, 4, 'Classic varsity style jacket', 10800.00, 9100.00, '../assest/men/jackets/(8).jpg', 25),
+('Parka Jacket', 1, 4, 'Heavy-duty parka for extreme cold', 16500.00, 13700.00, '../assest/men/jackets/(9).jpg', 15),
+('Track Jacket', 1, 4, 'Sporty track jacket', 6900.00, 5900.00, '../assest/men/jackets/(10).jpg', 35),
+('Suede Jacket', 1, 4, 'Premium suede jacket', 17200.00, 14300.00, '../assest/men/jackets/(11).jpg', 20),
+('Harrington Jacket', 1, 4, 'Iconic Harrington style jacket', 9500.00, 8000.00, '../assest/men/jackets/(12).jpg', 25);

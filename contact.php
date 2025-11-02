@@ -79,10 +79,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <nav>
             <div class="h2">A R V I N A</div>
             <ul>
-                <li class="li"><a href="home.html" class="aNav">HOME</a></li>
+                <li class="li"><a href="home.php" class="aNav">HOME</a></li>
                 <li class="li"><a href="" class="aNav">OFFERS</a></li>
                 <li class="li"><a href="" class="aNav">FAQ</a></li>
-                <li class="li"><a href="./about.html" class="aNav">ABOUT US</a></li>
+                <li class="li"><a href="./about.php" class="aNav">ABOUT US</a></li>
                 <li class="li"><a href="contact.php" class="aNav active">CONTACT</a></li>
                 <?php if (isset($_SESSION['customer_logged_in']) && $_SESSION['customer_logged_in']): ?>
                     <li class="li cart-link">
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </ul>
         </nav>
     </header>
-
+<div style="padding: 40px;"></div>
     <div class="contact-container">
         <h1 class="contact-title">Contact Us</h1>
         <p class="contact-subtitle">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>

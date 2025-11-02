@@ -1,77 +1,41 @@
 <?php
-
-
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = array();
-}
-
+// ✅ Add item to cart
 function addToCart($productId, $productName, $price, $color, $size, $quantity, $imageUrl) {
-    $cartKey = $productId . '_' . $color . '_' . $size;
-    
-    if (empty($productName) || empty($price) || empty($color) || empty($size) || $quantity <= 0) {
-        return array('success' => false, 'message' => 'Invalid product data');
+    $cartKey = md5($productId . $color . $size); // Unique key for item variant
+
+    if (!isset($_SESSION['cart'])) {
+        $_SESSION['cart'] = [];
     }
-    
+
+    // If same item exists, increase quantity
     if (isset($_SESSION['cart'][$cartKey])) {
         $_SESSION['cart'][$cartKey]['quantity'] += $quantity;
     } else {
-        $_SESSION['cart'][$cartKey] = array(
+        $_SESSION['cart'][$cartKey] = [
             'product_id' => $productId,
             'product_name' => $productName,
-            'price' => floatval($price),
+            'price' => $price,
             'color' => $color,
             'size' => $size,
-            'quantity' => intval($quantity),
+            'quantity' => $quantity,
             'image_url' => $imageUrl
-        );
+        ];
     }
-    
-    return array('success' => true, 'message' => 'Product added to cart', 'cart_count' => getCartItemCount());
 }
 
-function updateCartItem($cartKey, $quantity) {
-    if (isset($_SESSION['cart'][$cartKey])) {
-        if ($quantity <= 0) {
-            unset($_SESSION['cart'][$cartKey]);
-            return array('success' => true, 'message' => 'Item removed from cart');
-        } else {
-            $_SESSION['cart'][$cartKey]['quantity'] = intval($quantity);
-            return array('success' => true, 'message' => 'Cart updated');
-        }
-    }
-    return array('success' => false, 'message' => 'Item not found in cart');
-}
-
-function removeFromCart($cartKey) {
-    if (isset($_SESSION['cart'][$cartKey])) {
-        unset($_SESSION['cart'][$cartKey]);
-        return array('success' => true, 'message' => 'Item removed from cart');
-    }
-    return array('success' => false, 'message' => 'Item not found in cart');
-}
-
+// ✅ Get all cart items
 function getCartItems() {
-    return isset($_SESSION['cart']) ? $_SESSION['cart'] : array();
+    return $_SESSION['cart'] ?? [];
 }
 
-function getCartItemCount() {
-    $count = 0;
-    if (isset($_SESSION['cart'])) {
-        foreach ($_SESSION['cart'] as $item) {
-            $count += $item['quantity'];
-        }
-    }
-    return $count;
-}
-
+// ✅ Calculate total price
 function getCartTotal() {
     $total = 0;
-    if (isset($_SESSION['cart'])) {
+    if (!empty($_SESSION['cart'])) {
         foreach ($_SESSION['cart'] as $item) {
             $total += $item['price'] * $item['quantity'];
         }
@@ -79,8 +43,26 @@ function getCartTotal() {
     return $total;
 }
 
+// ✅ Get number of items
+function getCartItemCount() {
+    $count = 0;
+    if (!empty($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $item) {
+            $count += $item['quantity'];
+        }
+    }
+    return $count;
+}
+
+// ✅ Remove a specific item
+function removeCartItem($cartKey) {
+    if (isset($_SESSION['cart'][$cartKey])) {
+        unset($_SESSION['cart'][$cartKey]);
+    }
+}
+
+// ✅ Clear cart
 function clearCart() {
-    $_SESSION['cart'] = array();
-    return array('success' => true, 'message' => 'Cart cleared');
+    unset($_SESSION['cart']);
 }
 ?>

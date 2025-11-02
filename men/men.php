@@ -2,7 +2,13 @@
 session_start();
 
 $isLoggedIn = isset($_SESSION['customer_logged_in']) && $_SESSION['customer_logged_in'] === true;
+
+require_once '../php/session_cart.php';
+
 $customerName = isset($_SESSION['customer_name']) ? $_SESSION['customer_name'] : 'User';
+$cartCount = getCartItemCount(); // ✅ Get cart count from session
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,25 +72,30 @@ $customerName = isset($_SESSION['customer_name']) ? $_SESSION['customer_name'] :
         <nav>
             <div class="h2">A R V I N A</div>
             <ul>
-                <li class="li"><a href="../home.php" class="aNav">HOME</a></li>
-                <li class="li"><a href="" class="aNav">OFFERS</a></li>
-                <li class="li"><a href="" class="aNav">FAQ</a></li>
-                <li class="li"><a href="../about.html" class="aNav">ABOUT US</a></li>
-                <li class="li"><a href="../contact.php" class="aNav">CONTACT</a></li>
+                <li class="li"><a href="home.php" class="aNav active">HOME</a></li>
+                <li class="li"><a href="#" class="aNav">OFFERS</a></li>
+                <li class="li"><a href="#" class="aNav">FAQ</a></li>
+                <li class="li"><a href="./about.html" class="aNav">ABOUT US</a></li>
+                <li class="li"><a href="contact.php" class="aNav">CONTACT</a></li>
+                
+                <!-- 🛒 CART LINK -->
                 <li class="li cart-link">
-                    <a href="../cart.php" class="aNav">
+                    <a href="cart.php" class="aNav">
                         <i class="fa-solid fa-shopping-cart"></i> CART
-                        <span id="cart-count" style="display:none; background-color: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; margin-left: 5px;">0</span>
+                        <span id="cart-count" style="<?php echo $cartCount > 0 ? 'display:inline-block;' : 'display:none;'; ?> background-color:red; color:white; border-radius:50%; padding:2px 6px; font-size:12px; margin-left:5px;">
+                            <?php echo $cartCount; ?>
+                        </span>
                     </a>
                 </li>
-                <?php if ($isLoggedIn): ?>
+
+                <!-- 👤 USER INFO -->
                 <li class="li user-welcome">
-                    <span style="color: #3498db;"><i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($customerName); ?></span>
+                    <span style="color:#3498db;"><i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($customerName); ?></span>
                 </li>
-                <button onclick="window.location.href='../logout.php'"><i class="fa-solid fa-sign-out-alt"></i> LOGOUT</button>
-                <?php else: ?>
-                <button onclick="window.location.href='../login.php'">LOGIN</button>
-                <?php endif; ?>
+
+                <button onclick="window.location.href='logout.php'">
+                    <i class="fa-solid fa-sign-out-alt"></i> LOGOUT
+                </button>
             </ul>
         </nav>
         <div class="header-background"
