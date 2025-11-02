@@ -19,15 +19,7 @@ $customerName = isset($_SESSION['customer_name']) ? $_SESSION['customer_name'] :
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/category.css">
 
-    <script src="../java-script/men/load-product-category.js"></script>
     <script src="../java-script/cart.js"></script>
-
-    <script>
-        window.onload = function () {
-            renderProducts();
-        };
-
-    </script>
 
     <title>Men Section</title>
 
@@ -172,6 +164,36 @@ $customerName = isset($_SESSION['customer_name']) ? $_SESSION['customer_name'] :
 
         </div>
     </footer>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('../php/get_sub_categories.php?category_id=1');
+        const products = await response.json();
+
+        const container = document.querySelector('.product-category');
+        container.innerHTML = '';
+
+        if (!Array.isArray(products) || products.length === 0) {
+            container.innerHTML = '<p>No subcategories found.</p>';
+            return;
+        }
+
+        products.forEach(product => {
+            const card = document.createElement('div');
+            card.classList.add('category');
+            card.innerHTML = `
+                <div class="category-thambnail" onclick="window.location.href='${product.link}';">
+                    <img class="category-thambnail-image" src="${product.thumbnail}" alt="${product.title}">
+                    <div class="category-title"><p>${product.title}</p></div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    } catch (error) {
+        console.error('Error loading subcategories:', error);
+    }
+});
+</script>
 </body>
 
 </html>

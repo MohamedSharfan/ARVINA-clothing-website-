@@ -1,3 +1,9 @@
+<?php
+session_start();
+
+$isLoggedIn = isset($_SESSION['customer_logged_in']) && $_SESSION['customer_logged_in'] === true;
+$customerName = isset($_SESSION['customer_name']) ? $_SESSION['customer_name'] : 'User';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,15 +20,8 @@
     <link rel="stylesheet" href="../css/product-card.css">
     <link rel="stylesheet" href="../css/product-list.css">
     <link rel="stylesheet" href="../css/see-more.css">
-    <script src="../java-script/men/suits/load-product-card.js"></script>
-    <script>
-        window.onload = function () {
-            renderProducts();
-        };
 
-    </script>
-
-    <title>Men Suits</title>
+    <title>Men Jackets</title>
 
     <style>
         @media (max-width: 850px) {
@@ -55,29 +54,31 @@
                 color: #ffffff;
                 background-color: rgba(197, 197, 197, 0.3);
             }
-
         }
     </style>
-
-
 </head>
 
 <body>
     <header>
-        <nav >
-            <div class="h2" >A R V I N A</div>
+        <nav>
+            <div class="h2">A R V I N A</div>
             <ul>
                 <li class="li"><a href="" class="aNav">OFFERS</a></li>
                 <li class="li"><a href="" class="aNav">FAQ</a></li>
                 <li class="li"><a href="" class="aNav">ABOUT US</a></li>
                 <li class="li"><a href="" class="aNav">CONTACT</a></li>
-                <button onclick="displayLogin()">LOGIN</button>
+                <?php if ($isLoggedIn): ?>
+                    <button onclick="window.location.href='../php/logout.php'">LOGOUT</button>
+                <?php else: ?>
+                    <button onclick="displayLogin()">LOGIN</button>
+                <?php endif; ?>
             </ul>
         </nav>
-        <div class="header-background"
-            style="background-image: url(../assest/men/suits/\(14\).jpg); margin-top: 70px; ">
 
-            <div class="home-move-area">
+        <div class="header-background"
+            style="background-image: url(../assest/men/suits/\(13\).jpg); margin-top: 70px; ">
+
+            <div class="home-move-area" style="justify-content: flex-end; padding-right: 15%;">
                 <section class="home ">
                     <div class="home-text2">ELEVATE YOUR STYLE</div>
                     <div class="home-text1">TIMELESS ELEGANCE</div>
@@ -87,12 +88,10 @@
         </div>
     </header>
 
-
     <div class="sticky-area">
         <div class="shop-nav">
             <div class="nav-align">
-                <div class="all"><button class="btn1" onclick="window.location.href = '../home.html';">ALL</button>
-                </div>
+                <div class="all"><button class="btn1" onclick="window.location.href = '../home.html';">ALL</button></div>
                 <div class="bestsellers"><button class="btn1"
                         onclick="window.location.href = '../bestsellers/bestsellers.html';">BESTSELLERS</button></div>
                 <div class="us"><button class="btn1" onclick="window.location.href = '../about/about.html';">THE
@@ -101,26 +100,19 @@
                 </div>
                 <div class="women"><button class="btn1"
                         onclick="window.location.href = '../women/women.html';">WOMEN</button></div>
-
                 <div class="watches"><button class="btn1"
                         onclick="window.location.href = '../watches/watches.html';">WATCHES</button></div>
                 <div class="shoes"><button class="btn1"
                         onclick="window.location.href = '../shoes/shoes.html';">SHOES</button></div>
             </div>
         </div>
-
     </div>
 
-
-    <div class="product-list">
-     
-    </div>
+    <div class="product-list"></div>
 
     <div class="see-more">
         <div class="see-more-btn"><button>SEE MORE</button></div>
     </div>
-
-
 
     <div class="summer-sale">
         <div class="summer">SUMMER SALE</div>
@@ -146,16 +138,87 @@
             <div class="social-wrapper">
                 <h4>Contact Information</h4>
                 <ul class="contact-list">
-                    <li><i class="fa-solid fa-map-location"></i>67/2, Main street,Colombo</li>
+                    <li><i class="fa-solid fa-map-location"></i>67/2, Main street, Colombo</li>
                     <li><i class="fa-solid fa-id-badge"></i>+94777678678</li>
                     <li><i class="fa-solid fa-square-envelope"></i>oldmoneyclothing@gmail.com</li>
                 </ul>
             </div>
         </div>
-        <div class="social-icons">
-
-        </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const container = document.querySelector('.product-list');
+            container.innerHTML = '<p>Loading jackets...</p>';
+
+            try {
+                const response = await fetch('../php/get_products.php?category_id=1&subcategory_id=1');
+
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+                const text = await response.text();
+                let products;
+
+                try {
+                    products = JSON.parse(text);
+                } catch (e) {
+                    console.error("❌ Invalid JSON received:");
+                    console.log(text);
+                    container.innerHTML = '<p style="color:red;">Server returned invalid data. Check PHP errors in console.</p>';
+                    return;
+                }
+
+                console.log("✅ Loaded products:", products);
+                container.innerHTML = '';
+
+                if (!Array.isArray(products) || products.length === 0) {
+                    container.innerHTML = '<p>No jackets found.</p>';
+                    return;
+                }
+
+                products.forEach((product, index) => {
+                    const card = document.createElement('div');
+                    card.classList.add('product-card');
+
+                    card.innerHTML = `
+                <div class="thambnail" onclick="buyProduct(${index})">
+                    <img class="thambnail-image" src="${product.thumbnail}" alt="${product.title}">
+                </div>
+                <div class="save">
+                    <p>${product.discount_price ? `SAVE Rs ${(product.price - product.discount_price).toLocaleString()}` : ''}</p>
+                </div>
+                <div class="product-details">
+                    <div class="title"><p>${product.title}</p></div>
+                    <div class="price"><p>Rs ${Number(product.price).toLocaleString()}</p></div>
+                    <div class="button-section">
+                        <div class="thambnail-switch">
+                            <div class="thambnail-switch-1">
+                                <img class="thambnail-switch-image" src="${product.thumbnail}">
+                            </div>
+                            <div class="thambnail-switch-1">
+                                <img class="thambnail-switch-image" src="${product.thumbnail}">
+                            </div>
+                        </div>
+                        <div class="buy-btn">
+                            <button onclick="buyProduct(${index})">Buy</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+                    container.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error('⚠️ Error loading products:', error);
+                container.innerHTML = `<p style="color:red;">Failed to load products: ${error.message}</p>`;
+            }
+        });
+
+        function buyProduct(index) {
+            alert("Product " + index + " clicked!");
+        }
+    </script>
 </body>
 
 </html>
