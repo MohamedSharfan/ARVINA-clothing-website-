@@ -26,6 +26,14 @@ const products = [
         link:"./accessories.html",
     },
     
+    {
+        title: "Pakistani Shalwari Stripe",
+        price: "Rs 22,000.00",
+        save: "SAVE RS 2,000.00",
+        thumbnail: ".\/images\/women 13 front.jpg",
+        collection: "Women Dresses",
+        about: "comfy dress"
+    },
 ];
 
 

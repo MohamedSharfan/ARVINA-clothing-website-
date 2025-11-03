@@ -12,6 +12,13 @@ require_once '../php/db_connect.php';
 $success_message = '';
 $error_message = '';
 
+if (!isset($_GET['id'])) {
+    header('Location: admin_products.php');
+    exit;
+}
+
+$productId = intval($_GET['id']);
+$conn = getDBConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $productName = sanitizeInput($_POST['product_name']);
@@ -26,75 +33,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $colors = isset($_POST['colors']) && $_POST['colors'] !== '' ? json_encode(array_map('trim', explode(',', $_POST['colors']))) : '[]';
     $sizes = isset($_POST['sizes']) && $_POST['sizes'] !== '' ? json_encode(array_map('trim', explode(',', $_POST['sizes']))) : '[]';
     
-    $conn = getDBConnection();
-    $stmt = $conn->prepare("INSERT INTO products (product_name, category, subcategory, description, price, discount_price, image_url, stock_quantity, available_colors, available_sizes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssddsiss", $productName, $category, $subcategory, $description, $price, $discountPrice, $imageUrl, $stockQuantity, $colors, $sizes);
+    $stmt = $conn->prepare("UPDATE products SET product_name = ?, category = ?, subcategory = ?, description = ?, price = ?, discount_price = ?, image_url = ?, stock_quantity = ?, available_colors = ?, available_sizes = ? WHERE product_id = ?");
+    $stmt->bind_param("ssssddsissi", $productName, $category, $subcategory, $description, $price, $discountPrice, $imageUrl, $stockQuantity, $colors, $sizes, $productId);
     
     if ($stmt->execute()) {
-        $productId = $stmt->insert_id;
-        $success_message = "Product added successfully!";
-        
-        try {
-            $jsBase = realpath(__DIR__ . '/../java-script');
-            if ($jsBase) {
-                $catDir = strtolower(trim($category));
-                $subDir = strtolower(str_replace([' ', '-'], '', trim($subcategory)));
-                $targetFile = '';
-                
-                $possible = $jsBase . DIRECTORY_SEPARATOR . $catDir . DIRECTORY_SEPARATOR . $subDir . DIRECTORY_SEPARATOR . 'load-product-card.js';
-                if (file_exists($possible)) {
-                    $targetFile = $possible;
-                } else {
-                    $possible2 = $jsBase . DIRECTORY_SEPARATOR . $catDir . DIRECTORY_SEPARATOR . 'load-product-category.js';
-                    if (file_exists($possible2)) {
-                        $targetFile = $possible2;
-                    }
-                }
-                
-                if ($targetFile) {
-                    $jsContent = file_get_contents($targetFile);
-                    if (strpos($jsContent, json_encode($productName)) === false) {
-                        $priceStr = 'Rs ' . number_format($price, 2);
-                        $saveStr = '';
-                        if ($discountPrice > 0 && $discountPrice < $price) {
-                            $saveStr = 'SAVE RS ' . number_format($price - $discountPrice, 2);
-                        }
-                        $thumbnail = $imageUrl ?: '';
-                        $collection = $subcategory ?: $category;
-                        $about = $description ?: '';
-                        
-                        $newObj = "    {\n" .
-                                  "        title: " . json_encode($productName) . ",\n" .
-                                  "        price: " . json_encode($priceStr) . ",\n" .
-                                  "        save: " . json_encode($saveStr) . ",\n" .
-                                  "        thumbnail: " . json_encode($thumbnail) . ",\n" .
-                                  "        collection: " . json_encode($collection) . ",\n" .
-                                  "        about: " . json_encode($about) . "\n" .
-                                  "    },\n";
-                        
-                        $pos = strrpos($jsContent, '];');
-                        if ($pos !== false) {
-                            $jsContent = substr($jsContent, 0, $pos) . $newObj . substr($jsContent, $pos);
-                            file_put_contents($targetFile, $jsContent);
-                            $success_message .= " Product also added to frontend (" . basename($targetFile) . ").";
-                        }
-                    }
-                } else {
-                    $success_message .= " Note: No matching frontend JS file found. Product saved to database only.";
-                }
-            }
-        } catch (Exception $e) {
-            $error_message = "Product added but frontend update failed: " . $e->getMessage();
-        }
-        
-        $_POST = array();
+        $success_message = "Product updated successfully!";
     } else {
-        $error_message = "Error adding product: " . $stmt->error;
+        $error_message = "Error updating product: " . $stmt->error;
     }
-    
     $stmt->close();
-    closeDBConnection($conn);
 }
+
+$stmt = $conn->prepare("SELECT * FROM products WHERE product_id = ?");
+$stmt->bind_param("i", $productId);
+$stmt->execute();
+$result = $stmt->get_result();
+$product = $result->fetch_assoc();
+$stmt->close();
+
+if (!$product) {
+    header('Location: admin_products.php');
+    exit;
+}
+
+$colorsArray = json_decode($product['available_colors'], true);
+$sizesArray = json_decode($product['available_sizes'], true);
+$colorsString = is_array($colorsArray) ? implode(', ', $colorsArray) : '';
+$sizesString = is_array($sizesArray) ? implode(', ', $sizesArray) : '';
+
+closeDBConnection($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -103,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/admin.css">
-    <title>Add Product - Arvina Admin</title>
+    <title>Edit Product - Arvina Admin</title>
 </head>
 <body class="admin-page">
     <div class="admin-container">
@@ -130,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         <main class="main-content">
             <header class="admin-header">
-                <h1>Add New Product</h1>
+                <h1>Edit Product #<?php echo $product['product_id']; ?></h1>
                 <a href="admin_products.php" class="action-btn secondary">
                     <i class="fa-solid fa-arrow-left"></i> Back to Products
                 </a>
@@ -149,64 +116,69 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="product_name">Product Name *</label>
-                            <input type="text" id="product_name" name="product_name" required>
+                            <input type="text" id="product_name" name="product_name" value="<?php echo htmlspecialchars($product['product_name']); ?>" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="category">Category *</label>
                             <select id="category" name="category" required>
                                 <option value="">Select Category</option>
-                                <option value="Men">Men</option>
-                                <option value="Women">Women</option>
-                                <option value="Accessories">Accessories</option>
-                                <option value="Footwear">Footwear</option>
+                                <option value="Men" <?php echo $product['category'] === 'Men' ? 'selected' : ''; ?>>Men</option>
+                                <option value="Women" <?php echo $product['category'] === 'Women' ? 'selected' : ''; ?>>Women</option>
+                                <option value="Accessories" <?php echo $product['category'] === 'Accessories' ? 'selected' : ''; ?>>Accessories</option>
+                                <option value="Footwear" <?php echo $product['category'] === 'Footwear' ? 'selected' : ''; ?>>Footwear</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
                             <label for="subcategory">Subcategory</label>
-                            <input type="text" id="subcategory" name="subcategory" placeholder="e.g., Shirts, Dresses">
+                            <input type="text" id="subcategory" name="subcategory" value="<?php echo htmlspecialchars($product['subcategory']); ?>" placeholder="e.g., Shirts, Dresses">
                         </div>
                         
                         <div class="form-group full-width">
                             <label for="description">Description</label>
-                            <textarea id="description" name="description" rows="3"></textarea>
+                            <textarea id="description" name="description" rows="3"><?php echo htmlspecialchars($product['description']); ?></textarea>
                         </div>
                         
                         <div class="form-group">
                             <label for="price">Price (Rs) *</label>
-                            <input type="number" step="0.01" id="price" name="price" required>
+                            <input type="number" step="0.01" id="price" name="price" value="<?php echo $product['price']; ?>" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="discount_price">Discount Price (Rs)</label>
-                            <input type="number" step="0.01" id="discount_price" name="discount_price">
+                            <input type="number" step="0.01" id="discount_price" name="discount_price" value="<?php echo $product['discount_price'] > 0 ? $product['discount_price'] : ''; ?>">
                         </div>
                         
                         <div class="form-group">
                             <label for="stock_quantity">Stock Quantity *</label>
-                            <input type="number" id="stock_quantity" name="stock_quantity" required>
+                            <input type="number" id="stock_quantity" name="stock_quantity" value="<?php echo $product['stock_quantity']; ?>" required>
                         </div>
                         
                         <div class="form-group full-width">
                             <label for="image_url">Image URL</label>
-                            <input type="text" id="image_url" name="image_url" placeholder="./images/product.jpg">
+                            <input type="text" id="image_url" name="image_url" value="<?php echo htmlspecialchars($product['image_url']); ?>" placeholder="./images/product.jpg">
                         </div>
                         
                         <div class="form-group">
                             <label for="colors">Available Colors (comma separated)</label>
-                            <input type="text" id="colors" name="colors" placeholder="Red, Blue, Green, White">
+                            <input type="text" id="colors" name="colors" value="<?php echo htmlspecialchars($colorsString); ?>" placeholder="Red, Blue, Green, White">
                         </div>
                         
                         <div class="form-group">
                             <label for="sizes">Available Sizes (comma separated)</label>
-                            <input type="text" id="sizes" name="sizes" placeholder="S, M, L, XL, XXL">
+                            <input type="text" id="sizes" name="sizes" value="<?php echo htmlspecialchars($sizesString); ?>" placeholder="S, M, L, XL, XXL">
                         </div>
                     </div>
                     
-                    <button type="submit" class="submit-btn">
-                        <i class="fa-solid fa-plus"></i> Add Product
-                    </button>
+                    <div class="button-group">
+                        <button type="submit" class="submit-btn">
+                            <i class="fa-solid fa-save"></i> Update Product
+                        </button>
+                        <a href="admin_products.php" class="cancel-btn">
+                            <i class="fa-solid fa-times"></i> Cancel
+                        </a>
+                    </div>
                 </form>
             </div>
         </main>
@@ -247,8 +219,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 14px;
         }
         
-        .submit-btn {
+        .button-group {
             margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .submit-btn {
             padding: 12px 30px;
             background-color: #28a745;
             color: white;
@@ -261,6 +238,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         .submit-btn:hover {
             background-color: #218838;
+        }
+        
+        .cancel-btn {
+            padding: 12px 30px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .cancel-btn:hover {
+            background-color: #5a6268;
         }
         
         .alert {
