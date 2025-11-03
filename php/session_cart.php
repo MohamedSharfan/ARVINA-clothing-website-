@@ -3,17 +3,14 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-/**
- * ✅ Add item to cart
- */
 function addToCart($productId, $productName, $price, $color, $size, $quantity, $imageUrl) {
-    $cartKey = md5($productId . $color . $size); // Unique key for product variant
+    $cartKey = md5($productId . $color . $size); 
 
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
     }
 
-    // If item variant already exists → increase quantity
+ 
     if (isset($_SESSION['cart'][$cartKey])) {
         $_SESSION['cart'][$cartKey]['quantity'] += $quantity;
     } else {
@@ -30,14 +27,14 @@ function addToCart($productId, $productName, $price, $color, $size, $quantity, $
 }
 
 /**
- * ✅ Get all cart items
+ * Get all cart items
  */
 function getCartItems() {
     return $_SESSION['cart'] ?? [];
 }
 
 /**
- * ✅ Calculate total price
+ * Calculate total price
  */
 function getCartTotal() {
     $total = 0;
@@ -50,7 +47,7 @@ function getCartTotal() {
 }
 
 /**
- * ✅ Get number of items in cart
+ * Get number of items in cart
  */
 function getCartItemCount() {
     $count = 0;
@@ -63,7 +60,7 @@ function getCartItemCount() {
 }
 
 /**
- * ✅ Remove a specific item from the cart
+ * Remove a specific item from the cart
  */
 function removeCartItem($cartKey) {
     if (isset($_SESSION['cart'][$cartKey])) {
@@ -74,8 +71,7 @@ function removeCartItem($cartKey) {
 }
 
 /**
- * ✅ Update an existing cart item
- * Example: updateCartItem($cartKey, 3, 'Red', 'L');
+ * Update an existing cart item
  */
 function updateCartItem($cartKey, $newQuantity = null, $newColor = null, $newSize = null) {
     if (!isset($_SESSION['cart'][$cartKey])) {
@@ -104,7 +100,7 @@ function updateCartItem($cartKey, $newQuantity = null, $newColor = null, $newSiz
 }
 
 /**
- * ✅ Clear the entire cart
+ * Clear the entire cart
  */
 function clearCart() {
     unset($_SESSION['cart']);
