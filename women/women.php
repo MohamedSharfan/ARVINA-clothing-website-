@@ -6,7 +6,7 @@ $isLoggedIn = isset($_SESSION['customer_logged_in']) && $_SESSION['customer_logg
 require_once '../php/session_cart.php';
 
 $customerName = isset($_SESSION['customer_name']) ? $_SESSION['customer_name'] : 'User';
-$cartCount = getCartItemCount(); // ✅ Get cart count from session
+$cartCount = getCartItemCount();
 
 
 ?>
@@ -27,7 +27,7 @@ $cartCount = getCartItemCount(); // ✅ Get cart count from session
 
     <script src="../java-script/cart.js"></script>
 
-    <title>Men Section</title>
+    <title>Women Section</title>
 
     <style>
         @media (max-width: 850px) {

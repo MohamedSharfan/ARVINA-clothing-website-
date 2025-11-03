@@ -29,7 +29,7 @@ $cartCount = getCartItemCount(); // ✅ Get cart count from session
     
 
 
-    <title>Men Jackets</title>
+    <title>Women Section</title>
 
     <style>
         @media (max-width: 850px) {

@@ -27,7 +27,7 @@ $cartCount = getCartItemCount(); // ✅ Get cart count from session
     <link rel="stylesheet" href="../css/product-list.css">
     <link rel="stylesheet" href="../css/see-more.css">
 
-    <title>Men Jackets</title>
+    <title>Women Section</title>
 
     <style>
         @media (max-width: 850px) {
