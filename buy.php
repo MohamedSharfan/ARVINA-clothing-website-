@@ -1,4 +1,17 @@
 <?php
+session_start();
+require_once './php/session_cart.php';
+
+$isLoggedIn = isset($_SESSION['customer_logged_in']) && $_SESSION['customer_logged_in'] === true;
+
+if (!$isLoggedIn) {
+    header('Location: login.php');
+    exit;
+}
+
+
+$customerName = isset($_SESSION['customer_name']) ? $_SESSION['customer_name'] : 'User';
+$cartCount = getCartItemCount();
 // Get product ID from URL like buy.php?id=12
 $product_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
@@ -7,6 +20,7 @@ if ($product_id <= 0) {
     die("<p style='color:red; text-align:center; font-size:18px;'>Invalid Product ID.</p>");
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +42,7 @@ if ($product_id <= 0) {
             display: flex;
             justify-content: center;
             padding: 60px 5%;
+            margin-top: 60px;
             background-color: #f9f9f9;
         }
 
@@ -41,7 +56,7 @@ if ($product_id <= 0) {
             max-width: 1100px;
             width: 100%;
             animation: fadeIn 0.5s ease-in;
-            border-radius: 14px;
+           
         }
 
         .product-image {
@@ -54,7 +69,7 @@ if ($product_id <= 0) {
         .product-image img {
             width: 100%;
             max-width: 420px;
-            border-radius: 12px;
+           
             object-fit: cover;
             transition: transform 0.3s ease;
         }
@@ -182,19 +197,30 @@ if ($product_id <= 0) {
         <nav>
             <div class="h2">A R V I N A</div>
             <ul>
-                <li class="li"><a href="#o" class="aNav">OFFERS</a></li>
+                <li class="li"><a href="home.php" class="aNav active">HOME</a></li>
+                <li class="li"><a href="#" class="aNav">OFFERS</a></li>
+                <li class="li"><a href="#" class="aNav">FAQ</a></li>
                 <li class="li"><a href="./about.php" class="aNav">ABOUT US</a></li>
                 <li class="li"><a href="contact.php" class="aNav">CONTACT</a></li>
+
+                <!-- 🛒 CART LINK -->
                 <li class="li cart-link">
                     <a href="cart.php" class="aNav">
                         <i class="fa-solid fa-shopping-cart"></i> CART
-                        <span id="cart-count" style="display:none; background-color: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px; margin-left: 5px;">0</span>
+                        <span id="cart-count" style="<?php echo $cartCount > 0 ? 'display:inline-block;' : 'display:none;'; ?> background-color:red; color:white; border-radius:50%; padding:2px 6px; font-size:12px; margin-left:5px;">
+                            <?php echo $cartCount; ?>
+                        </span>
                     </a>
                 </li>
+
+                <!-- 👤 USER INFO -->
                 <li class="li user-welcome">
-                    <span style="color: #3498db;"><i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($customerName); ?></span>
+                    <span style="color:#3498db;"><i class="fa-solid fa-user"></i> <?php echo htmlspecialchars($customerName); ?></span>
                 </li>
-                <button onclick="window.location.href='logout.php'"><i class="fa-solid fa-sign-out-alt"></i> LOGOUT</button>
+
+                <button onclick="window.location.href='logout.php'">
+                    <i class="fa-solid fa-sign-out-alt"></i> LOGOUT
+                </button>
             </ul>
         </nav>
     </header>
@@ -307,19 +333,21 @@ if ($product_id <= 0) {
                     };
 
                     fetch('./php/add_to_cart.php', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
-                    })
-                    .then(res => res.json())
-                    .then(result => {
-                        if (result.success) {
-                            alert('✅ Added to cart!');
-                        } else {
-                            alert('❌ ' + result.message);
-                        }
-                    })
-                    .catch(err => console.error('Add to cart error:', err));
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        })
+                        .then(res => res.json())
+                        .then(result => {
+                            if (result.success) {
+                                alert('✅ Added to cart!');
+                            } else {
+                                alert('❌ ' + result.message);
+                            }
+                        })
+                        .catch(err => console.error('Add to cart error:', err));
                 });
 
             } catch (error) {
@@ -328,4 +356,5 @@ if ($product_id <= 0) {
         });
     </script>
 </body>
+
 </html>

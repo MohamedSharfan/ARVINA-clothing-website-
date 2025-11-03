@@ -23,11 +23,11 @@ $cartCount = getCartItemCount(); // ✅ Get cart count from session
     <link rel="stylesheet" href="../css/shop-nav.css">
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="../css/category.css">
+    <link rel="stylesheet" href="../css/product-card.css">
+    <link rel="stylesheet" href="../css/product-list.css">
+    <link rel="stylesheet" href="../css/see-more.css">
 
-    <script src="../java-script/cart.js"></script>
-
-    <title>Men Section</title>
+    <title>Men Jackets</title>
 
     <style>
         @media (max-width: 850px) {
@@ -60,11 +60,8 @@ $cartCount = getCartItemCount(); // ✅ Get cart count from session
                 color: #ffffff;
                 background-color: rgba(197, 197, 197, 0.3);
             }
-
         }
     </style>
-
-
 </head>
 
 <body>
@@ -72,12 +69,11 @@ $cartCount = getCartItemCount(); // ✅ Get cart count from session
         <nav>
             <div class="h2">A R V I N A</div>
             <ul>
-               <li class="li"><a href="../home.php" class="aNav active">HOME</a></li>
+                <li class="li"><a href="../home.php" class="aNav active">HOME</a></li>
                 <li class="li"><a href="#" class="aNav">OFFERS</a></li>
                 <li class="li"><a href="#" class="aNav">FAQ</a></li>
                 <li class="li"><a href="../about.php" class="aNav">ABOUT US</a></li>
                 <li class="li"><a href="../contact.php" class="aNav">CONTACT</a></li>
-                
                 <!-- 🛒 CART LINK -->
                 <li class="li cart-link">
                     <a href="../cart.php" class="aNav">
@@ -99,7 +95,7 @@ $cartCount = getCartItemCount(); // ✅ Get cart count from session
             </ul>
         </nav>
         <div class="header-background"
-            style="background-image: url(../assest/women/dresses/dress5.webp); margin-top: 70px; ">
+            style="background-image: url(../assest/women/outerware/outerware.jpg); margin-top: 70px; ">
 
             <div class="home-move-area" style="justify-content: flex-end; padding-right: 15%;">
                 <section class="home ">
@@ -110,7 +106,6 @@ $cartCount = getCartItemCount(); // ✅ Get cart count from session
             </div>
         </div>
     </header>
-
 
     <div class="sticky-area">
         <div class="shop-nav">
@@ -133,11 +128,10 @@ $cartCount = getCartItemCount(); // ✅ Get cart count from session
 
     </div>
 
-    <div class="container">
-        <div class="product-category">
+    <div class="product-list"></div>
 
-        </div>
-
+    <div class="see-more">
+        <div class="see-more-btn"><button>SEE MORE</button></div>
     </div>
 
     <div class="summer-sale">
@@ -164,46 +158,88 @@ $cartCount = getCartItemCount(); // ✅ Get cart count from session
             <div class="social-wrapper">
                 <h4>Contact Information</h4>
                 <ul class="contact-list">
-                    <li><i class="fa-solid fa-map-location"></i>67/2, Main street,Colombo</li>
+                    <li><i class="fa-solid fa-map-location"></i>67/2, Main street, Colombo</li>
                     <li><i class="fa-solid fa-id-badge"></i>+94777678678</li>
                     <li><i class="fa-solid fa-square-envelope"></i>oldmoneyclothing@gmail.com</li>
                 </ul>
             </div>
         </div>
-        <div class="social-icons">
-
-        </div>
     </footer>
-<script>
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        const response = await fetch('../php/get_sub_categories.php?category_id=2');
-        const products = await response.json();
 
-        const container = document.querySelector('.product-category');
-        container.innerHTML = '';
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const container = document.querySelector('.product-list');
+            container.innerHTML = '<p>Loading jackets...</p>';
 
-        if (!Array.isArray(products) || products.length === 0) {
-            container.innerHTML = '<p>No subcategories found.</p>';
-            return;
-        }
+            try {
+                const response = await fetch('../php/get_products.php?category_id=2&subcategory_id=8');
 
-        products.forEach(product => {
-            const card = document.createElement('div');
-            card.classList.add('category');
-            card.innerHTML = `
-                <div class="category-thambnail" onclick="window.location.href='${product.link}';">
-                    <img class="category-thambnail-image" src="${product.thumbnail}" alt="${product.title}">
-                    <div class="category-title"><p>${product.title}</p></div>
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+                const text = await response.text();
+                let products;
+
+                try {
+                    products = JSON.parse(text);
+                } catch (e) {
+                    console.error("❌ Invalid JSON received:");
+                    console.log(text);
+                    container.innerHTML = '<p style="color:red;">Server returned invalid data. Check PHP errors in console.</p>';
+                    return;
+                }
+
+                console.log("✅ Loaded products:", products);
+                container.innerHTML = '';
+
+                if (!Array.isArray(products) || products.length === 0) {
+                    container.innerHTML = '<p>No jackets found.</p>';
+                    return;
+                }
+
+                products.forEach((product, index) => {
+                    const card = document.createElement('div');
+                    card.classList.add('product-card');
+
+                    card.innerHTML = `
+                <div class="thambnail" onclick="buyProduct(${product.id})">
+                    <img class="thambnail-image" src="${product.thumbnail}" alt="${product.title}">
+                </div>
+                <div class="save">
+                    <p>${product.discount_price ? `SAVE Rs ${(product.price - product.discount_price).toLocaleString()}` : ''}</p>
+                </div>
+                <div class="product-details">
+                    <div class="title"><p>${product.title}</p></div>
+                    <div class="price"><p>Rs ${Number(product.price).toLocaleString()}</p></div>
+                    <div class="button-section">
+                        <div class="thambnail-switch">
+                            <div class="thambnail-switch-1">
+                                <img class="thambnail-switch-image" src="${product.thumbnail}">
+                            </div>
+                            <div class="thambnail-switch-1">
+                                <img class="thambnail-switch-image" src="${product.thumbnail}">
+                            </div>
+                        </div>
+                        <div class="buy-btn">
+                            <button onclick="buyProduct(${product.id})">Buy</button>
+                        </div>
+                    </div>
                 </div>
             `;
-            container.appendChild(card);
+
+                    container.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error('⚠️ Error loading products:', error);
+                container.innerHTML = `<p style="color:red;">Failed to load products: ${error.message}</p>`;
+            }
         });
-    } catch (error) {
-        console.error('Error loading subcategories:', error);
-    }
-});
-</script>
+
+        function buyProduct(productId) {
+            console.log(productId)
+            window.location.href = `../buy.php?id=${productId}`;
+        }
+    </script>
 </body>
 
 </html>
